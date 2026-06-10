@@ -117,7 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openDocModal = (docId) => {
     if (!docModal) return;
-    modalDocId.value = docId;
+    const activeDocIdInput = document.getElementById('modalDocId');
+    if (activeDocIdInput) {
+      activeDocIdInput.value = docId;
+    }
     docModal.classList.add('active');
     docModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
