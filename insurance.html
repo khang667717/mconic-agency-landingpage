@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Bảo hiểm sự kiện MCONIC Protect — bảo vệ khách mời, đội ngũ và thiết bị khỏi mọi rủi ro tài chính.">
+  <title>Bảo hiểm Sự kiện — MCONIC Protect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/insurance.css">
+</head>
+
+<body>
+
+  <!-- ==================== NAV ==================== -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="MCONIC — Trang chủ">
+        <img src="images/logo.png" alt="MCONIC" width="272" height="81">
+      </a>
+      <ul class="nav__menu">
+        <li><a href="index.html#about" class="nav__link">Thông tin</a></li>
+        <li><a href="#" class="nav__link nav__link--accent">Quyền lợi</a></li>
+        <li><a href="index.html#services" class="nav__link">Dịch vụ</a></li>
+        <li><a href="index.html#advantages" class="nav__link">Ưu điểm</a></li>
+        <li><a href="index.html#resources" class="nav__link">Tài liệu</a></li>
+        <li><a href="index.html#contact" class="nav__link">Liên hệ</a></li>
+      </ul>
+      <div class="nav__right">
+        <a href="tel:0901234567" class="nav__hotline"><i class="fa-solid fa-phone" aria-hidden="true"></i> 0901 234
+          567</a>
+        <a href="index.html#contact" class="btn btn-red nav__cta">Bắt đầu dự án</a>
+        <button class="nav__burger" id="burger" aria-label="Mở menu" aria-controls="navPanel" aria-expanded="false"><i
+            class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    <div class="nav__overlay" id="navOverlay"></div>
+    <aside class="nav__panel" id="navPanel">
+      <button class="nav__close" id="navClose" aria-label="Đóng menu"><i class="fa-solid fa-xmark"
+          aria-hidden="true"></i></button>
+      <a href="index.html#about" class="nav__link">Thông tin</a>
+      <a href="#" class="nav__link nav__link--accent">Quyền lợi</a>
+      <a href="index.html#services" class="nav__link">Dịch vụ</a>
+      <a href="index.html#advantages" class="nav__link">Ưu điểm</a>
+      <a href="index.html#resources" class="nav__link">Tài liệu</a>
+      <a href="index.html#contact" class="nav__link">Liên hệ</a>
+      <a href="index.html#contact" class="btn btn-red">Bắt đầu dự án</a>
+      <a href="tel:0901234567" class="nav__panel-hotline"><i class="fa-solid fa-phone" aria-hidden="true"></i> 0901 234
+        567</a>
+    </aside>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <header class="ins-hero">
+    <div class="ins-hero__bg"><img src="images/case-gala.webp" alt="" aria-hidden="true"></div>
+    <div class="container ins-hero__grid">
+      <div class="ins-hero__content">
+        <span class="ins-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> MCONIC Protect</span>
+        <h1>Bảo chứng thành công.<br><span class="red">An tâm</span> tổ chức.</h1>
+        <p class="ins-hero__lede">Gói bảo hiểm sự kiện toàn diện nhất — bảo vệ khách mời, đội ngũ và thiết bị khỏi mọi
+          rủi ro tài chính.</p>
+        <div class="ins-trust">
+          <div><b>10B+</b><span>Giá trị bảo vệ</span></div>
+          <div><b>100%</b><span>Bảo mật dữ liệu</span></div>
+          <div><b>24/7</b><span>Hỗ trợ sự cố</span></div>
+        </div>
+      </div>
+
+      <div class="quote-card">
+
+        <h3>Nhận báo giá bảo hiểm</h3>
+        <p class="sub">Điền thông tin sự kiện — chúng tôi đề xuất gói phù hợp nhất.</p>
+        <form id="quoteForm" novalidate>
+          <div class="form__row"><label for="qName">Họ tên *</label><input type="text" id="qName"
+              placeholder="Nguyễn Văn A" autocomplete="name" required><span class="field-error" id="qNameErr"
+              role="alert"></span></div>
+          <div class="form__row"><label for="qPhone">Số điện thoại *</label><input type="tel" id="qPhone"
+              placeholder="0901 234 567" autocomplete="tel" maxlength="10" required><span class="field-error"
+              id="qPhoneErr" role="alert"></span></div>
+          <div class="form__row"><label for="qAge">Tuổi *</label><input type="number" id="qAge" placeholder="VD: 25"
+              min="0" max="120" required><span class="field-error" id="qAgeErr" role="alert"></span></div>
+          <div class="quote-card__actions">
+            <button type="submit" class="btn btn-red">Tính phí &amp; hạng thẻ <i class="fa-solid fa-calculator"
+                aria-hidden="true"></i></button>
+            <button type="reset" class="btn btn-outline" id="quoteReset">Reset <i class="fa-solid fa-rotate-left"
+                aria-hidden="true"></i></button>
+          </div>
+          <div class="quote-card__secure"><span><i class="fa-solid fa-lock" aria-hidden="true"></i> Bảo
+              mật</span><span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> An toàn</span></div>
+        </form>
+        <div class="result" id="quoteResult" aria-live="polite"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================== PROTECT (about) ==================== -->
+    <section class="protect section">
+      <div class="container protect__grid">
+        <div class="reveal">
+          <span class="kicker">Vì sao chọn chúng tôi</span>
+          <h2>Bảo vệ sự kiện cùng <span class="red">MCONIC.</span></h2>
+          <p>Chúng tôi là chuyên gia tổ chức sự kiện hàng đầu với hơn 10 năm kinh nghiệm. Hiểu rõ những rủi ro tiềm ẩn,
+            gói MCONIC Protect ra đời để mang lại sự an tâm tuyệt đối — từ y tế, thiết bị đến hoãn/hủy do thời tiết.</p>
+        </div>
+        <div class="protect__visual reveal">
+          <img class="pv1" src="images/ins-space.webp" alt="Không gian sự kiện được bảo vệ">
+          <img class="pv2" src="images/ins-security.webp" alt="Đội ngũ an ninh chuyên nghiệp">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROCESS ==================== -->
+    <section class="process section">
+      <div class="container">
+        <div class="sect-head center reveal">
+          <h2>Quy trình <span class="red">3 bước</span> nhanh chóng.</h2>
+          <p>Từ đăng ký đến bồi thường — tất cả gói gọn, minh bạch, tức thì.</p>
+        </div>
+        <div class="proc-grid">
+          <div class="proc reveal">
+            <div class="proc__n">1</div>
+            <h3>Đăng ký thông tin</h3>
+            <p>Dùng form trên website hoặc liên hệ hotline để cung cấp thông tin sự kiện.</p>
+          </div>
+          <div class="proc reveal">
+            <div class="proc__n">2</div>
+            <h3>Tư vấn &amp; Ký kết</h3>
+            <p>Chuyên viên liên hệ trong 2h, chốt quyền lợi và ký hợp đồng online.</p>
+          </div>
+          <div class="proc reveal">
+            <div class="proc__n">3</div>
+            <h3>Bồi thường lập tức</h3>
+            <p>Khi có rủi ro, hệ thống duyệt bồi thường khẩn cấp 24/7 ngay tại sự kiện.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TIERS ==================== -->
+    <section class="section" id="tiers">
+      <div class="container">
+        <div class="sect-head center reveal">
+          <h2>Các hạng thẻ <span class="red">bảo hiểm.</span></h2>
+          <p>Lựa chọn giải pháp phù hợp với độ tuổi của bạn.</p>
+        </div>
+        <div class="tiers-grid">
+
+          <div class="tier tier-silver reveal">
+            <div class="tier__badge"><i class="fa-solid fa-medal" aria-hidden="true"></i></div>
+            <div class="tier__head">
+              <h3>Thẻ Bạc</h3>
+              <p class="tier__price">500.000đ<span>/năm</span></p>
+            </div>
+            <ul class="tier__feat">
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Bảo vệ y tế nội trú cơ bản</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Đền bù tai nạn lên đến 50 triệu</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Hỗ trợ chi phí nằm viện công</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Hỗ trợ khẩn cấp 24/7</li>
+            </ul>
+            <button class="btn btn-outline tier__btn" data-tier="Thẻ Bạc">Đăng ký ngay</button>
+          </div>
+
+          <div class="tier tier-titan reveal">
+            <div class="tier__badge"><i class="fa-solid fa-medal" aria-hidden="true"></i></div>
+            <div class="tier__head">
+              <h3>Thẻ Titan</h3>
+              <p class="tier__price">800.000đ<span>/năm</span></p>
+            </div>
+            <ul class="tier__feat">
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Bảo vệ y tế nội &amp; ngoại trú cơ bản</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Đền bù tai nạn lên đến 150 triệu</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Hỗ trợ nằm viện tại bệnh viện tư (nội trú)
+              </li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Bảo lãnh viện phí nhanh 24/7</li>
+            </ul>
+            <button class="btn btn-outline tier__btn" data-tier="Thẻ Titan">Đăng ký ngay</button>
+          </div>
+
+          <div class="tier tier-gold reveal">
+            <div class="tier__badge"><i class="fa-solid fa-medal" aria-hidden="true"></i></div>
+            <div class="tier__head">
+              <h3>Thẻ Vàng</h3>
+              <p class="tier__price">1.200.000đ<span>/năm</span></p>
+            </div>
+            <ul class="tier__feat">
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Bảo vệ y tế nội &amp; ngoại trú toàn diện
+              </li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Đền bù tai nạn lên đến 400 triệu</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Hỗ trợ nằm viện phòng tiêu chuẩn riêng</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Bảo lãnh viện phí bệnh viện quốc tế</li>
+            </ul>
+            <button class="btn btn-red tier__btn" data-tier="Thẻ Vàng">Đăng ký ngay</button>
+          </div>
+
+          <div class="tier tier-platinum reveal">
+            <div class="tier__badge"><i class="fa-solid fa-medal" aria-hidden="true"></i></div>
+            <div class="tier__head">
+              <h3>Bạch Kim</h3>
+              <p class="tier__price">1.800.000đ<span>/năm</span></p>
+            </div>
+            <ul class="tier__feat">
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Quyền lợi y tế VIP toàn quốc</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Đền bù tai nạn lên đến 800 triệu</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Nằm viện phòng Suite cao cấp tự chọn</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Hỗ trợ khẩn cấp và bảo lãnh viện phí VIP 24/7
+              </li>
+            </ul>
+            <button class="btn btn-outline tier__btn" data-tier="Thẻ Bạch Kim">Đăng ký ngay</button>
+          </div>
+
+          <div class="tier tier-diamond reveal">
+            <div class="tier__badge"><i class="fa-solid fa-medal" aria-hidden="true"></i></div>
+            <div class="tier__head">
+              <h3>Kim Cương</h3>
+              <p class="tier__price">3.000.000đ<span>/năm</span></p>
+            </div>
+            <ul class="tier__feat">
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Bảo hiểm y tế toàn cầu VIP</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Đền bù tai nạn lên đến 2 Tỷ đồng</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Hỗ trợ chi phí điều trị tại nước ngoài</li>
+              <li><i class="fa-solid fa-check yes" aria-hidden="true"></i> Dịch vụ bác sĩ gia đình &amp; cấp cứu quốc tế
+              </li>
+            </ul>
+            <button class="btn btn-outline tier__btn" data-tier="Thẻ Kim Cương">Đăng ký ngay</button>
+          </div>
+        </div>
+        <!-- Toggle button to show all packages when filtered -->
+        <div id="show-all-tiers-container" style="display: none; text-align: center; margin-top: 4rem;">
+          <button id="btn-show-all-tiers" class="btn btn-outline" style="width: auto; display: inline-flex;">
+            Xem thêm các gói khác <i class="fa-solid fa-chevron-down"
+              style="margin-left: 0.5rem; display: flex; align-items: center;"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__col footer__col--brand">
+          <h4 class="footer__title">MCONIC Protect</h4>
+          <p class="footer__info">Giải pháp bảo an sự kiện toàn diện, quản trị rủi ro tài chính trực thuộc MCONIC Event
+            Agency.</p>
+          <address class="footer__address">
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Tòa nhà MCONIC, 123 Nguyễn Văn A, Q.1,
+              TP.HCM</span>
+            <a href="tel:0901234567"><i class="fa-solid fa-phone" aria-hidden="true"></i> Hotline: 0901 234 567
+              (24/7)</a>
+            <a href="mailto:hello@mconic.vn"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email:
+              hello@mconic.vn</a>
+          </address>
+          <div class="footer__bct">
+            <a href="#" target="_blank" rel="nofollow" aria-label="Đã thông báo Bộ Công Thương">
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__title">Hỗ trợ khách hàng</h4>
+          <ul class="footer__links">
+            <li><a href="#quoteForm">Tính phí bảo hiểm nhanh</a></li>
+            <li><a href="#tiers">Bảng tra cứu hạng thẻ</a></li>
+            <li><a href="index.html#faq">Quy trình duyệt bồi thường</a></li>
+            <li><a href="index.html#services">Hệ sinh thái dịch vụ sự kiện</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__title">Chính sách pháp lý</h4>
+          <ul class="footer__links">
+            <li><a href="#">Chính sách bảo mật thông tin</a></li>
+            <li><a href="#">Điều khoản thỏa thuận dịch vụ</a></li>
+            <li><a href="#">Chính sách thanh toán & hoàn trả</a></li>
+            <li><a href="#">Cơ chế giải quyết tranh chấp</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__title">Thanh toán & Kết nối</h4>
+          <p class="footer__info-sm">Cổng thanh toán bảo mật tích hợp:</p>
+          <div class="footer__payments">
+            <span title="Visa Card"><i class="fa-brands fa-cc-visa" aria-hidden="true"></i></span>
+            <span title="Mastercard"><i class="fa-brands fa-cc-mastercard" aria-hidden="true"></i></span>
+            <span title="Cổng thanh toán VNPAY" class="pay-badge">VNPAY</span>
+            <span title="Ví điện tử MoMo" class="pay-badge">MOMO</span>
+          </div>
+          <p class="footer__info-sm" style="margin-top: 1.5rem;">Cộng đồng doanh nghiệp:</p>
+          <div class="footer__social" style="margin-top: 0;">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          MCONIC Event Agency · MSDN 0123456789 do Sở KHĐT TP.HCM cấp ngày 01/01/2020 · © 2026 MCONIC Protect. Bảo lưu
+          mọi quyền. · <a href="index.html">Trang chủ</a> · <a href="index.html#contact">Liên hệ</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/insurance.js"></script>
+</body>
+
+</html>

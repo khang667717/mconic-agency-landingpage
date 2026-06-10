@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MCONIC – Công ty thiết kế & tổ chức sự kiện chuyên nghiệp. Pop-art, mạnh mẽ, cam kết không rủi ro.">
+  <title>MCONIC — Kiến tạo sự kiện, vang danh thương hiệu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ==================== NAV ==================== -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="nav__logo" aria-label="MCONIC — Trang chủ">
+        <img src="images/logo.png" alt="MCONIC" width="272" height="81">
+      </a>
+      <ul class="nav__menu">
+        <li><a href="#about" class="nav__link">Thông tin</a></li>
+        <li><a href="insurance.html" class="nav__link nav__link--accent">Quyền lợi</a></li>
+        <li><a href="#services" class="nav__link">Dịch vụ</a></li>
+        <li><a href="#advantages" class="nav__link">Ưu điểm</a></li>
+        <li><a href="#resources" class="nav__link">Tài liệu</a></li>
+        <li><a href="#contact" class="nav__link">Liên hệ</a></li>
+      </ul>
+      <div class="nav__right">
+        <a href="tel:0901234567" class="nav__hotline"><i class="fa-solid fa-phone" aria-hidden="true"></i> 0901 234
+          567</a>
+        <a href="#contact" class="btn btn-red nav__cta">Bắt đầu dự án</a>
+        <button class="nav__burger" id="burger" aria-label="Mở menu" aria-controls="navPanel" aria-expanded="false"><i
+            class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    <div class="nav__overlay" id="navOverlay"></div>
+    <aside class="nav__panel" id="navPanel">
+      <button class="nav__close" id="navClose" aria-label="Đóng menu"><i class="fa-solid fa-xmark"
+          aria-hidden="true"></i></button>
+      <a href="#about" class="nav__link">Thông tin</a>
+      <a href="insurance.html" class="nav__link nav__link--accent">Quyền lợi</a>
+      <a href="#services" class="nav__link">Dịch vụ</a>
+      <a href="#advantages" class="nav__link">Ưu điểm</a>
+      <a href="#resources" class="nav__link">Tài liệu</a>
+      <a href="#contact" class="nav__link">Liên hệ</a>
+      <a href="#contact" class="btn btn-red">Bắt đầu dự án</a>
+      <a href="tel:0901234567" class="nav__panel-hotline"><i class="fa-solid fa-phone" aria-hidden="true"></i> 0901 234
+        567</a>
+    </aside>
+  </nav>
+
+  <main id="top">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero section">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <span class="hero__tag"><span class="dot"></span> Creative Event Agency</span>
+          <h1>Kiến tạo sự kiện.<br><span class="red">Vang danh</span> <span class="underline">thương
+              hiệu.</span></h1>
+          <p class="hero__lede">Giải pháp tổ chức sự kiện B2B trọn gói theo tiêu chuẩn quốc tế. Từ ý tưởng chiến
+            lược đến thực thi hoàn hảo — cam kết không rủi ro với gói bảo hiểm lên đến 10 tỷ.</p>
+          <div class="hero__actions">
+            <a href="#contact" class="btn btn-red">Bắt đầu dự án <i class="fa-solid fa-arrow-right"
+                aria-hidden="true"></i></a>
+            <a href="#services" class="btn btn-outline">Xem năng lực</a>
+          </div>
+          <div class="hero__trust"><strong>100+</strong> doanh nghiệp hàng đầu đã tin chọn</div>
+        </div>
+        <div class="hero__visual">
+
+          <svg class="hero__halftone" viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <pattern id="hd" width="12" height="12" patternUnits="userSpaceOnUse">
+                <circle cx="3" cy="3" r="2.4" fill="currentColor" />
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#hd)" />
+          </svg>
+          <div class="hero__frame">
+            <img src="images/hero.webp" alt="Hội nghị quy mô lớn do MCONIC tổ chức" width="900" height="1125"
+              fetchpriority="high">
+          </div>
+          <div class="hero__sticker"><b>10+</b><span>Năm<br>kinh nghiệm</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MARQUEE ==================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marquee">
+        <span class="marquee__item">MICE <span class="sep">✦</span> CONCERT &amp; GALA <span class="sep">✦</span> BOOTH
+          TRIỂN LÃM <span class="sep">✦</span> PRODUCT LAUNCH <span class="sep">✦</span> YEAR END PARTY <span
+            class="sep">✦</span> BRAND ACTIVATION <span class="sep">✦</span></span>
+        <span class="marquee__item">MICE <span class="sep">✦</span> CONCERT &amp; GALA <span class="sep">✦</span> BOOTH
+          TRIỂN LÃM <span class="sep">✦</span> PRODUCT LAUNCH <span class="sep">✦</span> YEAR END PARTY <span
+            class="sep">✦</span> BRAND ACTIVATION <span class="sep">✦</span></span>
+      </div>
+    </div>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section class="about section" id="about">
+      <div class="container about__grid">
+        <div class="reveal">
+          <span class="kicker">Về chúng tôi</span>
+          <h2>Hơn 10 năm kiến tạo những khoảnh khắc <span class="red">không thể nào quên.</span></h2>
+          <p>Chúng tôi không đơn thuần là đơn vị tổ chức — chúng tôi là những người kể chuyện bằng không gian, âm thanh
+            và cảm xúc. Mỗi sự kiện là một tác phẩm có dấu ấn riêng.</p>
+          <div class="stats">
+            <div class="stat"><b>1000+</b><span>Sự kiện thành công</span></div>
+            <div class="stat"><b>500+</b><span>Đối tác khách hàng</span></div>
+            <div class="stat"><b>99%</b><span>Khách hàng hài lòng</span></div>
+            <div class="stat"><b>10+</b><span>Năm kinh nghiệm</span></div>
+          </div>
+          <span class="demo-note">Số liệu minh hoạ</span>
+        </div>
+        <div class="about__visual reveal">
+          <img src="images/mconic_about_team.webp" alt="Đội ngũ MCONIC họp chiến lược sự kiện" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SERVICES ==================== -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="sect-head reveal">
+          <span class="kicker">Dịch vụ cốt lõi</span>
+          <h2>Đa dạng quy mô. <span class="red">Nhất quán chất lượng.</span></h2>
+          <p>Sáu nhóm giải pháp bao trọn mọi nhu cầu sự kiện của doanh nghiệp.</p>
+        </div>
+        <div class="svc-grid">
+          <a href="#contact" class="svc reveal">
+            <div class="svc__img"><span class="svc__num">01</span><img src="images/svc-mice.webp" alt="Sự kiện MICE"
+                loading="lazy"></div>
+            <div class="svc__body">
+              <h3>Sự kiện M.I.C.E</h3>
+              <p>Hội thảo, hội nghị kết hợp du lịch nghỉ dưỡng chuẩn 5 sao.</p><span class="svc__cta">Liên hệ ngay <i
+                  class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a href="#contact" class="svc reveal">
+            <div class="svc__img"><span class="svc__num">02</span><img src="images/svc-concert.webp"
+                alt="Concert &amp; Gala" loading="lazy"></div>
+            <div class="svc__body">
+              <h3>Concert &amp; Gala</h3>
+              <p>Đại nhạc hội, Gala Dinner hoành tráng với âm thanh, ánh sáng chuẩn quốc tế.</p><span
+                class="svc__cta">Liên hệ ngay <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a href="#contact" class="svc reveal">
+            <div class="svc__img"><span class="svc__num">03</span><img src="images/svc-booth.webp"
+                alt="Giải pháp Booth triển lãm" loading="lazy"></div>
+            <div class="svc__body">
+              <h3>Booth Triển lãm</h3>
+              <p>Thiết kế và thi công gian hàng chuyên nghiệp, tạo ấn tượng thị giác sâu sắc.</p><span
+                class="svc__cta">Liên hệ ngay <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a href="#contact" class="svc reveal">
+            <div class="svc__img"><span class="svc__num">04</span><img src="images/svc-launch.webp" alt="Product Launch"
+                loading="lazy"></div>
+            <div class="svc__body">
+              <h3>Product Launch</h3>
+              <p>Lễ ra mắt sản phẩm với concept độc quyền, khai thác tối đa công nghệ trình diễn.</p><span
+                class="svc__cta">Liên hệ ngay <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a href="#contact" class="svc reveal">
+            <div class="svc__img"><span class="svc__num">05</span><img src="images/svc-yep.webp"
+                alt="Year End Party &amp; Kỷ niệm" loading="lazy"></div>
+            <div class="svc__body">
+              <h3>Year End Party</h3>
+              <p>Đêm tiệc tri ân hoành tráng, tôn vinh thành tựu và gắn kết văn hoá doanh nghiệp.</p><span
+                class="svc__cta">Liên hệ ngay <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a href="#contact" class="svc reveal">
+            <div class="svc__img"><span class="svc__num">06</span><img src="images/svc-activation.webp"
+                alt="Brand Activation" loading="lazy"></div>
+            <div class="svc__body">
+              <h3>Brand Activation</h3>
+              <p>Chiến dịch kích hoạt thương hiệu sáng tạo, tương tác trực tiếp lan toả thông điệp.</p><span
+                class="svc__cta">Liên hệ ngay <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CASE STUDIES ==================== -->
+    <section class="cases section" id="cases">
+      <div class="container">
+        <div class="sect-head reveal">
+          <h2>Case study <span class="red">nổi bật.</span></h2>
+          <p>Những dự án đã tạo nên dấu ấn và giá trị đo lường được. <span style="opacity:.7">(Số liệu minh hoạ.)</span>
+          </p>
+        </div>
+        <div class="case-grid">
+          <article class="case reveal">
+            <div class="case__img"><span class="case__badge">+235% ROI</span><img src="images/case-tech-summit.webp"
+                alt="Tech Summit 2025" loading="lazy"></div>
+            <div class="case__body">
+              <h3>Tech Summit 2025</h3>
+              <p>Sự kiện quy tụ 2.500+ khách tham dự, 30+ diễn giả quốc tế cho tập đoàn công nghệ toàn cầu.</p>
+              <div class="case__stats"><span><strong>2.500+</strong> khách</span><span><strong>98%</strong> hài
+                  lòng</span><span><strong>235%</strong> ROI</span></div>
+            </div>
+          </article>
+          <article class="case reveal">
+            <div class="case__img"><span class="case__badge">1.200 khách</span><img src="images/case-gala.webp"
+                alt="Gala kỷ niệm 20 năm" loading="lazy"></div>
+            <div class="case__body">
+              <h3>Gala kỷ niệm 20 năm</h3>
+              <p>Đêm tiệc hoành tráng chủ đề "Heritage &amp; Future" cho tập đoàn hàng đầu Việt Nam.</p>
+              <div class="case__stats"><span><strong>1.200+</strong> khách</span><span><strong>100%</strong> hài
+                  lòng</span><span><strong>15+</strong> báo chí</span></div>
+            </div>
+          </article>
+          <article class="case reveal">
+            <div class="case__img"><span class="case__badge">5M+ views</span><img src="images/case-launch.webp"
+                alt="Ra mắt sản phẩm" loading="lazy"></div>
+            <div class="case__body">
+              <h3>Ra mắt smartphone mới</h3>
+              <p>Sự kiện trực tiếp kết hợp livestream toàn cầu, đạt 5 triệu lượt xem.</p>
+              <div class="case__stats"><span><strong>5M+</strong> views</span><span><strong>+43%</strong> nhận
+                  diện</span><span><strong>3.000+</strong> lead</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section class="section">
+      <div class="container">
+        <div class="sect-head center reveal">
+          <h2>Niềm tin từ <span class="red">đối tác.</span></h2>
+        </div>
+        <div class="quotes-grid">
+          <figure class="quote reveal">
+            <div class="quote__mark">"</div>
+            <p>MCONIC đã tổ chức thành công Gala 20 năm của chúng tôi với 1.200 khách. Mọi chi tiết đều hoàn hảo.</p>
+            <figcaption class="quote__by"><span class="quote__av">MA</span><span><b>Minh Anh</b><span>Giám đốc
+                  Marketing</span></span></figcaption>
+          </figure>
+          <figure class="quote reveal">
+            <div class="quote__mark">"</div>
+            <p>Chuyên nghiệp, sáng tạo và đặc biệt là gói bảo hiểm sự kiện khiến chúng tôi hoàn toàn an tâm.</p>
+            <figcaption class="quote__by"><span class="quote__av">TH</span><span><b>Trần Hùng</b><span>Giám đốc Điều
+                  hành</span></span></figcaption>
+          </figure>
+          <figure class="quote reveal">
+            <div class="quote__mark">"</div>
+            <p>Đội ngũ đã xử lý xuất sắc sự cố thời tiết phút chót. Thực sự đáng tin cậy trong mọi tình huống.</p>
+            <figcaption class="quote__by"><span class="quote__av">LP</span><span><b>Lê Phương</b><span>Trưởng ban Tổ
+                  chức</span></span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ADVANTAGES ==================== -->
+    <section class="section" id="advantages">
+      <div class="container adv-grid">
+        <div class="reveal">
+          <span class="kicker">Giá trị khác biệt</span>
+          <h2 style="font-size:clamp(1.9rem,4vw,3rem);text-transform:uppercase">Bảo chứng cho sự <span class="red">thành
+              công.</span></h2>
+          <p style="color:var(--ink-soft);font-size:1.08rem;margin-top:1rem">MCONIC thiết lập tiêu chuẩn mới cho ngành
+            sự kiện qua bộ quy tắc vận hành khắt khe và hệ thống đối tác chuyên nghiệp hàng đầu.</p>
+        </div>
+        <div class="adv-list reveal">
+          <div class="adv">
+            <div class="adv__n">01</div>
+            <div>
+              <h3>Kinh nghiệm thực chiến</h3>
+              <p>Đội ngũ từng điều phối các hội nghị cấp cao và đại nhạc hội trên 5.000 khách.</p>
+            </div>
+          </div>
+          <div class="adv">
+            <div class="adv__n">02</div>
+            <div>
+              <h3>Chi phí minh bạch</h3>
+              <p>Bảng dự toán tài chính rõ ràng ngay từ đầu, tuyệt đối không phát sinh chi phí ẩn.</p>
+            </div>
+          </div>
+          <div class="adv">
+            <div class="adv__n">03</div>
+            <div>
+              <h3>Mạng lưới rộng khắp</h3>
+              <p>Kết nối trực tiếp với hệ sinh thái địa điểm 5 sao và nhà cung cấp kỹ thuật top đầu toàn quốc.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section class="section">
+      <div class="container">
+        <div class="sect-head center reveal">
+          <h2>Câu hỏi <span class="red">thường gặp.</span></h2>
+        </div>
+        <div class="faq-wrap reveal">
+          <div class="faq">
+            <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>MCONIC có hỗ trợ tổ chức sự kiện ở
+                  tỉnh thành khác không?</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+              <div class="faq__a">
+                <p>Có. MCONIC có mạng lưới đối tác và đội ngũ điều phối tại tất cả các tỉnh thành lớn: Hà Nội, Đà Nẵng,
+                  Nha Trang, Cần Thơ…</p>
+              </div>
+            </div>
+            <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>Thời gian tối thiểu để chuẩn bị
+                  một sự kiện trung bình là bao lâu?</span><i class="fa-solid fa-chevron-down"
+                  aria-hidden="true"></i></button>
+              <div class="faq__a">
+                <p>Trung bình 4–6 tuần cho sự kiện 100–500 khách. Với sự kiện gấp, chúng tôi có thể đáp ứng trong 2–3
+                  tuần nếu đủ nguồn lực.</p>
+              </div>
+            </div>
+            <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>Chi phí tổ chức sự kiện được tính
+                  như thế nào?</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+              <div class="faq__a">
+                <p>Báo giá chi tiết, minh bạch từng hạng mục: concept, thiết kế, thi công, âm thanh ánh sáng, nhân sự,
+                  hậu cần. Không phát sinh chi phí ẩn.</p>
+              </div>
+            </div>
+            <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>Gói bảo hiểm sự kiện có bắt buộc
+                  không?</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+              <div class="faq__a">
+                <p>Không bắt buộc nhưng được khuyến khích mạnh mẽ, đặc biệt với sự kiện ngoài trời hoặc quy mô lớn.</p>
+              </div>
+            </div>
+            <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>MCONIC có cung cấp dịch vụ đo
+                  lường ROI sau sự kiện không?</span><i class="fa-solid fa-chevron-down"
+                  aria-hidden="true"></i></button>
+              <div class="faq__a">
+                <p>Có. Đội ngũ phân tích dữ liệu cung cấp báo cáo chi tiết về tương tác, tỷ lệ hài lòng, lượng đề cập
+                  truyền thông và giá trị thương hiệu thu được.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== RESOURCES ==================== -->
+    <section class="resources section" id="resources">
+      <div class="container">
+        <div class="sect-head reveal">
+          <span class="kicker">Tài liệu chuyên môn</span>
+          <h2>Tải hồ sơ năng lực <span class="red">miễn phí.</span></h2>
+          <p>Để lại email — chúng tôi gửi ngay Company Profile và Checklist tổ chức sự kiện.</p>
+        </div>
+        <div class="res-grid">
+          <div class="res reveal">
+            <div class="res__ic"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i></div>
+            <h3>Company Profile 2026</h3>
+            <p>Hồ sơ năng lực chi tiết kèm 5 case study tiêu biểu.</p><button class="btn btn-outline"
+              data-doc="company-profile">Yêu cầu qua email</button>
+          </div>
+          <div class="res reveal">
+            <div class="res__ic"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div>
+            <h3>Event Master Checklist</h3>
+            <p>Bảng công việc A–Z để tổ chức sự kiện B2B thành công.</p><button class="btn btn-outline"
+              data-doc="event-checklist">Yêu cầu qua email</button>
+          </div>
+          <div class="res reveal">
+            <div class="res__ic"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i></div>
+            <h3>Báo cáo Ngành 2026</h3>
+            <p>Số liệu và xu hướng mới nhất về hành vi khách hàng &amp; định dạng sự kiện.</p><button
+              class="btn btn-outline" data-doc="industry-report">Yêu cầu qua email</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section class="contact section" id="contact">
+      <div class="container contact__grid">
+        <div class="reveal">
+          <span class="kicker">Trò chuyện cùng chuyên gia</span>
+          <h2>Sẵn sàng biến ý tưởng thành <span class="red">hiện thực?</span></h2>
+          <p class="contact__lede">Đội ngũ hoạch định chiến lược của MCONIC sẽ liên hệ tư vấn và gửi bản đánh giá rủi ro
+            sự kiện (Risk Assessment) hoàn toàn miễn phí.</p>
+          <ul class="contact__list">
+            <li><i class="fa-solid fa-check" aria-hidden="true"></i> Nhận proposal sơ bộ trong 72h</li>
+            <li><i class="fa-solid fa-check" aria-hidden="true"></i> Báo giá chi tiết, không chi phí ẩn</li>
+            <li><i class="fa-solid fa-check" aria-hidden="true"></i> Tư vấn gói bảo hiểm sự kiện phù hợp</li>
+          </ul>
+        </div>
+        <form class="form reveal" id="contactForm" novalidate>
+          <div class="form__row"><label for="cName">Họ và tên</label><input type="text" id="cName" name="name"
+              placeholder="Nguyễn Văn A" autocomplete="name"><span class="field-error" id="cNameErr"
+              role="alert"></span></div>
+          <div class="form__row"><label for="cPhone">Số điện thoại</label><input type="tel" id="cPhone" name="phone"
+              placeholder="0901 234 567" autocomplete="tel" maxlength="10"><span class="field-error" id="cPhoneErr"
+              role="alert"></span></div>
+          <div class="form__row"><label for="cEmail">Email công việc</label><input type="email" id="cEmail" name="email"
+              placeholder="name@company.com" autocomplete="email"><span class="field-error" id="cEmailErr"
+              role="alert"></span></div>
+          <button type="submit" class="btn btn-red">Gửi yêu cầu tư vấn <i class="fa-solid fa-paper-plane"
+              aria-hidden="true"></i></button>
+          <div class="form__secure"><span><i class="fa-solid fa-lock" aria-hidden="true"></i> SSL Secure</span><span>Cam
+              kết bảo mật thông tin</span></div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__col footer__col--brand">
+          <h4 class="footer__title">MCONIC Event Agency</h4>
+          <p class="footer__info">Giải pháp tổ chức sự kiện B2B trọn gói theo tiêu chuẩn quốc tế. Sáng tạo, kỷ luật và
+            cam kết không rủi ro.</p>
+          <address class="footer__address">
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Tòa nhà MCONIC, 123 Nguyễn Văn A, Q.1,
+              TP.HCM</span>
+            <a href="tel:0901234567"><i class="fa-solid fa-phone" aria-hidden="true"></i> Hotline: 0901 234 567
+              (24/7)</a>
+            <a href="mailto:hello@mconic.vn"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email:
+              hello@mconic.vn</a>
+          </address>
+          <div class="footer__bct">
+            <a href="#" target="_blank" rel="nofollow" aria-label="Đã thông báo Bộ Công Thương">
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__title">Dịch vụ cốt lõi</h4>
+          <ul class="footer__links">
+            <li><a href="#services">Nhóm giải pháp sự kiện</a></li>
+            <li><a href="#cases">Case study thực tế</a></li>
+            <li><a href="#resources">Tài liệu &amp; Checklist</a></li>
+            <li><a href="insurance.html">Gói bảo hiểm MCONIC Protect</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__title">Chính sách bảo an</h4>
+          <ul class="footer__links">
+            <li><a href="#">Chính sách bảo mật dữ liệu</a></li>
+            <li><a href="#">Điều khoản thỏa thuận dịch vụ</a></li>
+            <li><a href="#">Chính sách hoàn trả &amp; hủy dịch vụ</a></li>
+            <li><a href="#">Cơ chế xử lý khiếu nại rủi ro</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__title">Thanh toán &amp; Kết nối</h4>
+          <p class="footer__info-sm">Hỗ trợ cổng giao dịch bảo mật:</p>
+          <div class="footer__payments">
+            <span title="Visa Card"><i class="fa-brands fa-cc-visa" aria-hidden="true"></i></span>
+            <span title="Mastercard"><i class="fa-brands fa-cc-mastercard" aria-hidden="true"></i></span>
+            <span title="Cổng thanh toán VNPAY" class="pay-badge">VNPAY</span>
+            <span title="Ví điện tử MoMo" class="pay-badge">MOMO</span>
+          </div>
+          <p class="footer__info-sm" style="margin-top: 1.5rem;">Kết nối cộng đồng doanh nghiệp:</p>
+          <div class="footer__social" style="margin-top: 0;">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          MCONIC Event Agency · Mã số doanh nghiệp / MSDN: 0123456789 do Sở KHĐT TP.HCM cấp ngày 01/01/2020.<br>
+          © 2026 MCONIC. Toàn bộ thông tin trên website được bảo hộ bản quyền bởi pháp luật Việt Nam.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== DOCUMENT REQUEST MODAL ==================== -->
+  <div class="modal" id="docModal" aria-hidden="true">
+    <div class="modal__overlay" id="docModalOverlay"></div>
+    <div class="modal__body">
+      <button class="modal__close" id="docModalClose" aria-label="Đóng"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <div class="modal__head">
+        <h3>Nhận tài liệu miễn phí</h3>
+        <p>Vui lòng điền thông tin bên dưới, tài liệu sẽ được gửi trực tiếp đến email của bạn.</p>
+      </div>
+      <form class="form" id="docModalForm" novalidate>
+        <input type="hidden" id="modalDocId" name="docId">
+        <div class="form__row">
+          <label for="mName">Họ và tên *</label>
+          <input type="text" id="mName" name="name" placeholder="Nguyễn Văn A" required>
+          <span class="field-error" id="mNameErr" role="alert"></span>
+        </div>
+        <div class="form__row">
+          <label for="mEmail">Email công việc *</label>
+          <input type="email" id="mEmail" name="email" placeholder="name@company.com" required>
+          <span class="field-error" id="mEmailErr" role="alert"></span>
+        </div>
+        <button type="submit" class="btn btn-red" style="width: 100%; margin-top: 0.5rem;">
+          Gửi tài liệu qua email <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
