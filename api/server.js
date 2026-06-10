@@ -12,31 +12,50 @@ const { google } = require('googleapis');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 // Winston Logger configuration for logging errors
+const transports = [
+  new winston.transports.Console({ format: winston.format.simple() })
+];
+
+// Only write to file if we are not on Vercel (read-only filesystem)
+if (!process.env.VERCEL) {
+  try {
+    transports.push(
+      new winston.transports.File({ filename: path.join(__dirname, '..', 'logs', 'error.log'), level: 'error' })
+    );
+  } catch (e) {
+    console.error('Failed to add Winston file transport:', e.message);
+  }
+}
+
 const logger = winston.createLogger({
   level: 'error',
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()
   ),
-  transports: [
-    new winston.transports.File({ filename: path.join(__dirname, '..', 'logs', 'error.log'), level: 'error' }),
-    new winston.transports.Console({ format: winston.format.simple() })
-  ]
+  transports
 });
 
-// Ensure logs directory exists
-const logsDir = path.join(__dirname, '..', 'logs');
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir);
+// Ensure logs directory exists (skip/fail gracefully on Vercel)
+try {
+  const logsDir = path.join(__dirname, '..', 'logs');
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir);
+  }
+} catch (e) {
+  console.warn('Logs directory creation skipped (running in serverless mode):', e.message);
 }
 
-// Ensure assets/documents directory exists
+// Ensure assets/documents directory exists (skip/fail gracefully on Vercel)
 const docsDir = path.join(__dirname, '..', 'assets', 'documents');
-if (!fs.existsSync(docsDir)) {
-  fs.mkdirSync(path.join(__dirname, '..', 'assets'), { recursive: true });
-  fs.mkdirSync(docsDir, { recursive: true });
+try {
+  if (!fs.existsSync(docsDir)) {
+    fs.mkdirSync(path.join(__dirname, '..', 'assets'), { recursive: true });
+    fs.mkdirSync(docsDir, { recursive: true });
+  }
+} catch (e) {
+  console.warn('Assets directory creation skipped (running in serverless mode):', e.message);
 }
 
 // Database instance
