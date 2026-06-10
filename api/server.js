@@ -7,8 +7,6 @@ const morgan = require('morgan');
 const winston = require('winston');
 const rateLimit = require('express-rate-limit');
 const nodemailer = require('nodemailer');
-const { open } = require('sqlite');
-const sqlite3 = require('sqlite3');
 const compression = require('compression');
 const { google } = require('googleapis');
 
@@ -173,6 +171,9 @@ async function logLeadToGoogleSheets(lead) {
 // Initialize SQLite Database
 async function initDatabase() {
   try {
+    const { open } = require('sqlite');
+    const sqlite3 = require('sqlite3');
+
     const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '..', 'leads.db');
     
     // Ensure parent directory for database exists if custom path is set
