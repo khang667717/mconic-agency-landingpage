@@ -406,7 +406,7 @@ app.post('/api/leads/document', async (req, res) => {
       logger.error('Failed to log document lead to Google Sheets:', err);
     });
 
-    // Send Document Email to User
+    // Send Document Email to User (non-blocking)
     const transporter = getMailTransporter();
     if (transporter) {
       const mailOptions = {
@@ -428,7 +428,9 @@ app.post('/api/leads/document', async (req, res) => {
         }]
       };
 
-      await transporter.sendMail(mailOptions);
+      transporter.sendMail(mailOptions).catch(err => {
+        logger.error('Failed to send document email to user:', err);
+      });
     }
 
     return res.status(200).json({ success: true, message: 'Tài liệu đã được gửi tới email của bạn thành công!' });
