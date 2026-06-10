@@ -87,8 +87,12 @@ async function getGoogleSheetsClient() {
         scopes: ['https://www.googleapis.com/auth/spreadsheets'],
       };
     } else {
+      const parsedCreds = JSON.parse(credentialsEnv);
+      if (parsedCreds && parsedCreds.private_key) {
+        parsedCreds.private_key = parsedCreds.private_key.replace(/\\n/g, '\n');
+      }
       authConfig = {
-        credentials: JSON.parse(credentialsEnv),
+        credentials: parsedCreds,
         scopes: ['https://www.googleapis.com/auth/spreadsheets'],
       };
     }
