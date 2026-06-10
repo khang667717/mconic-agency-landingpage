@@ -555,8 +555,6 @@ if (require.main === module) {
     });
   });
 } else {
-  // Trigger database initialization asynchronously only if NOT on Vercel
-  if (!process.env.VERCEL) {
-    initDatabase();
-  }
+  // Trigger database initialization asynchronously in the background for serverless warmups
+  initDatabase();
 }
