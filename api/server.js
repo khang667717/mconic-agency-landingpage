@@ -23,21 +23,21 @@ const logger = winston.createLogger({
     winston.format.json()
   ),
   transports: [
-    new winston.transports.File({ filename: path.join(__dirname, 'logs', 'error.log'), level: 'error' }),
+    new winston.transports.File({ filename: path.join(__dirname, '..', 'logs', 'error.log'), level: 'error' }),
     new winston.transports.Console({ format: winston.format.simple() })
   ]
 });
 
 // Ensure logs directory exists
-const logsDir = path.join(__dirname, 'logs');
+const logsDir = path.join(__dirname, '..', 'logs');
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir);
 }
 
 // Ensure assets/documents directory exists
-const docsDir = path.join(__dirname, 'assets', 'documents');
+const docsDir = path.join(__dirname, '..', 'assets', 'documents');
 if (!fs.existsSync(docsDir)) {
-  fs.mkdirSync(path.join(__dirname, 'assets'), { recursive: true });
+  fs.mkdirSync(path.join(__dirname, '..', 'assets'), { recursive: true });
   fs.mkdirSync(docsDir, { recursive: true });
 }
 
@@ -50,7 +50,7 @@ let googleSheetsClient = null;
 async function getGoogleSheetsClient() {
   if (googleSheetsClient) return googleSheetsClient;
   
-  const credentialsPath = path.join(__dirname, 'google-credentials.json');
+  const credentialsPath = path.join(__dirname, '..', 'google-credentials.json');
   const sheetId = process.env.GOOGLE_SHEET_ID;
   const credentialsEnv = process.env.GOOGLE_CREDENTIALS_JSON;
   
@@ -173,7 +173,7 @@ async function logLeadToGoogleSheets(lead) {
 // Initialize SQLite Database
 async function initDatabase() {
   try {
-    const dbPath = process.env.DATABASE_PATH || path.join(__dirname, 'leads.db');
+    const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '..', 'leads.db');
     
     // Ensure parent directory for database exists if custom path is set
     const dbDir = path.dirname(dbPath);
@@ -218,7 +218,7 @@ app.use(express.json());
 app.use(morgan('dev')); // HTTP request logging
 
 // Serve Static Frontend files
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, '..')));
 
 // Rate Limiter: Max 5 requests per minute per IP to prevent spam
 const apiLimiter = rateLimit({
@@ -532,5 +532,3 @@ if (require.main === module) {
   // Trigger database initialization asynchronously in the background for serverless warmups
   initDatabase();
 }
-
-
