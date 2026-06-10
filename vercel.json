@@ -5,5 +5,10 @@
       "source": "/api/(.*)",
       "destination": "/api/server"
     }
-  ]
+  ],
+  "functions": {
+    "api/server.js": {
+      "includeFiles": "assets/documents/**"
+    }
+  }
 }
