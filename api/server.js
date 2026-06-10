@@ -324,9 +324,11 @@ app.post('/api/leads/contact', async (req, res) => {
     }
 
     // Log to Google Sheets
-    logLeadToGoogleSheets({ type: 'contact', name, phone: cleanedPhone, email }).catch(err => {
+    try {
+      await logLeadToGoogleSheets({ type: 'contact', name, phone: cleanedPhone, email });
+    } catch (err) {
       logger.error('Failed to log contact lead to Google Sheets:', err);
-    });
+    }
 
     // Send Alert Emails
     const transporter = getMailTransporter();
@@ -344,9 +346,11 @@ app.post('/api/leads/contact', async (req, res) => {
           <p><strong>Thời gian:</strong> ${new Date().toLocaleString('vi-VN')}</p>
         `
       };
-      transporter.sendMail(adminMailOptions).catch(err => {
+      try {
+        await transporter.sendMail(adminMailOptions);
+      } catch (err) {
         logger.error('Failed to send admin contact email notification:', err);
-      });
+      }
 
       // 2. Confirmation Email to User
       const userMailOptions = {
@@ -382,9 +386,11 @@ app.post('/api/leads/contact', async (req, res) => {
           </div>
         `
       };
-      transporter.sendMail(userMailOptions).catch(err => {
+      try {
+        await transporter.sendMail(userMailOptions);
+      } catch (err) {
         logger.error('Failed to send user contact confirmation email:', err);
-      });
+      }
     }
 
     return res.status(200).json({ success: true, message: 'Yêu cầu tư vấn đã được tiếp nhận thành công!' });
@@ -427,11 +433,13 @@ app.post('/api/leads/document', async (req, res) => {
     }
 
     // Log to Google Sheets
-    logLeadToGoogleSheets({ type: 'document', name, email, details: docId }).catch(err => {
+    try {
+      await logLeadToGoogleSheets({ type: 'document', name, email, details: docId });
+    } catch (err) {
       logger.error('Failed to log document lead to Google Sheets:', err);
-    });
+    }
 
-    // Send Document Email to User (non-blocking)
+    // Send Document Email to User (non-blocking but awaited)
     const transporter = getMailTransporter();
     if (transporter) {
       const mailOptions = {
@@ -453,9 +461,11 @@ app.post('/api/leads/document', async (req, res) => {
         }]
       };
 
-      transporter.sendMail(mailOptions).catch(err => {
+      try {
+        await transporter.sendMail(mailOptions);
+      } catch (err) {
         logger.error('Failed to send document email to user:', err);
-      });
+      }
     }
 
     return res.status(200).json({ success: true, message: 'Tài liệu đã được gửi tới email của bạn thành công!' });
@@ -492,9 +502,11 @@ app.post('/api/leads/quote', async (req, res) => {
     }
 
     // Log to Google Sheets
-    logLeadToGoogleSheets({ type: 'quote', name, phone: cleanedPhone, age: parseInt(age), details: recommendedTier || 'N/A' }).catch(err => {
+    try {
+      await logLeadToGoogleSheets({ type: 'quote', name, phone: cleanedPhone, age: parseInt(age), details: recommendedTier || 'N/A' });
+    } catch (err) {
       logger.error('Failed to log quote lead to Google Sheets:', err);
-    });
+    }
 
     // Send Alert Email to Admin
     const transporter = getMailTransporter();
@@ -512,9 +524,11 @@ app.post('/api/leads/quote', async (req, res) => {
           <p><strong>Thời gian:</strong> ${new Date().toLocaleString('vi-VN')}</p>
         `
       };
-      transporter.sendMail(adminMailOptions).catch(err => {
+      try {
+        await transporter.sendMail(adminMailOptions);
+      } catch (err) {
         logger.error('Failed to send admin quote email notification:', err);
-      });
+      }
     }
 
     return res.status(200).json({ success: true, message: 'Yêu cầu tính phí bảo hiểm đã được lưu và gửi tới chuyên viên!' });
