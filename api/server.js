@@ -11,6 +11,7 @@ const compression = require('compression');
 const { google } = require('googleapis');
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 // Winston Logger configuration for logging errors
 const transports = [
