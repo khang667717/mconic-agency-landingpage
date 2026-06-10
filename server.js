@@ -207,8 +207,7 @@ async function initDatabase() {
 
     console.log('Database initialized successfully with indexes.');
   } catch (error) {
-    logger.error('Failed to initialize database:', error);
-    process.exit(1);
+    logger.error('Failed to initialize database (running in no-db/serverless mode):', error.message);
   }
 }
 
@@ -287,11 +286,17 @@ app.post('/api/leads/contact', async (req, res) => {
   }
 
   try {
-    // Insert into Database
-    await db.run(
-      'INSERT INTO leads (type, name, phone, email) VALUES (?, ?, ?, ?)',
-      ['contact', name, cleanedPhone, email]
-    );
+    // Insert into Database (optional/non-blocking for serverless hosting)
+    try {
+      if (db) {
+        await db.run(
+          'INSERT INTO leads (type, name, phone, email) VALUES (?, ?, ?, ?)',
+          ['contact', name, cleanedPhone, email]
+        );
+      }
+    } catch (dbErr) {
+      logger.error('SQLite contact insert failed:', dbErr.message);
+    }
 
     // Log to Google Sheets
     logLeadToGoogleSheets({ type: 'contact', name, phone: cleanedPhone, email }).catch(err => {
@@ -384,11 +389,17 @@ app.post('/api/leads/document', async (req, res) => {
   }
 
   try {
-    // Insert into Database
-    await db.run(
-      'INSERT INTO leads (type, name, email, details) VALUES (?, ?, ?, ?)',
-      ['document', name, email, docId]
-    );
+    // Insert into Database (optional/non-blocking for serverless hosting)
+    try {
+      if (db) {
+        await db.run(
+          'INSERT INTO leads (type, name, email, details) VALUES (?, ?, ?, ?)',
+          ['document', name, email, docId]
+        );
+      }
+    } catch (dbErr) {
+      logger.error('SQLite document insert failed:', dbErr.message);
+    }
 
     // Log to Google Sheets
     logLeadToGoogleSheets({ type: 'document', name, email, details: docId }).catch(err => {
@@ -441,11 +452,17 @@ app.post('/api/leads/quote', async (req, res) => {
   }
 
   try {
-    // Insert into Database
-    await db.run(
-      'INSERT INTO leads (type, name, phone, age, details) VALUES (?, ?, ?, ?, ?)',
-      ['quote', name, cleanedPhone, parseInt(age), recommendedTier || 'N/A']
-    );
+    // Insert into Database (optional/non-blocking for serverless hosting)
+    try {
+      if (db) {
+        await db.run(
+          'INSERT INTO leads (type, name, phone, age, details) VALUES (?, ?, ?, ?, ?)',
+          ['quote', name, cleanedPhone, parseInt(age), recommendedTier || 'N/A']
+        );
+      }
+    } catch (dbErr) {
+      logger.error('SQLite quote insert failed:', dbErr.message);
+    }
 
     // Log to Google Sheets
     logLeadToGoogleSheets({ type: 'quote', name, phone: cleanedPhone, age: parseInt(age), details: recommendedTier || 'N/A' }).catch(err => {
@@ -490,6 +507,9 @@ app.get('/api/admin/leads', async (req, res) => {
   }
 
   try {
+    if (!db) {
+      return res.status(200).json({ success: true, count: 0, data: [], message: 'SQLite database is offline (running in serverless mode).' });
+    }
     const rows = await db.all('SELECT * FROM leads ORDER BY created_at DESC');
     return res.status(200).json({ success: true, count: rows.length, data: rows });
   } catch (error) {
@@ -498,11 +518,19 @@ app.get('/api/admin/leads', async (req, res) => {
   }
 });
 
-// Initialize database and start the server
-initDatabase().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running in ${process.env.NODE_ENV || 'development'} mode on http://localhost:${PORT}`);
+// Export app for serverless platforms like Vercel
+module.exports = app;
+
+// Initialize database and start the server only if run directly (not as a module on serverless)
+if (require.main === module) {
+  initDatabase().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running in ${process.env.NODE_ENV || 'development'} mode on http://localhost:${PORT}`);
+    });
   });
-});
+} else {
+  // Trigger database initialization asynchronously in the background for serverless warmups
+  initDatabase();
+}
 
 
