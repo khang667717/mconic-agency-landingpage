@@ -47,6 +47,18 @@
   transition: transform .14s var(--ease), background-color .18s var(--ease), color .18s var(--ease);
 }
 
+@media(max-width: 480px) {
+  .btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.75rem;
+  }
+  
+  .nav__cta {
+    padding: 0.6rem 1rem !important;
+    font-size: 0.7rem !important;
+  }
+}
+
 .btn-red {
   background: var(--red);
   color: #fff;

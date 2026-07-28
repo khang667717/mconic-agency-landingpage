@@ -114,7 +114,7 @@
     font-size: clamp(2.6rem, 6vw, 4.8rem);
     font-weight: 900;
     text-transform: uppercase;
-    line-height: .92;
+    line-height: 1.2;
     letter-spacing: -.03em;
     color: var(--paper)
 }
@@ -821,4 +821,336 @@
     .tier__price {
         font-size: 1.55rem
     }
+}
+
+
+/* ============================================================
+   INSURANCE LOGOS HORIZONTAL SCROLL
+   ============================================================ */
+.insurance-scroll-container {
+  margin-top: 2rem;
+  position: relative;
+}
+
+.insurance-scroll {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  padding: 1.5rem 1rem 2rem 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.insurance-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.logo-item {
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: var(--r-md);
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: transform .14s var(--ease), box-shadow .14s var(--ease), background-color .18s var(--ease);
+  flex-shrink: 0;
+  min-width: 180px;
+  scroll-snap-align: start;
+  white-space: nowrap;
+}
+
+.logo-item:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--red);
+  background: var(--paper);
+}
+
+.scroll-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.8rem;
+  font-style: italic;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Animation for scrolling hint */
+@keyframes scrollHint {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.insurance-page .insurance-scroll {
+  animation: scrollHint 4s ease-in-out infinite;
+}
+
+/* Better scrollbar for desktop */
+@media (min-width: 769px) {
+  .insurance-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--line);
+  }
+  
+  .insurance-scroll::-webkit-scrollbar {
+    display: block;
+    height: 6px;
+  }
+  
+  .insurance-scroll::-webkit-scrollbar-track {
+    background: var(--line);
+    border-radius: 3px;
+  }
+  
+  .insurance-scroll::-webkit-scrollbar-thumb {
+    background: var(--green);
+    border-radius: 3px;
+  }
+}
+
+
+/* ============================================================
+   GREEN INSURANCE THEME OVERRIDES
+   ============================================================ */
+body.insurance-page {
+  background: var(--paper);
+}
+
+/* Green theme for insurance page only */
+.insurance-page .nav__link.nav__link--accent {
+  color: var(--green) !important;
+}
+
+.insurance-page .nav__link:hover,
+.insurance-page .nav__link:focus-visible {
+  color: var(--green) !important;
+}
+
+.insurance-page .nav__link::after {
+  background: var(--green) !important;
+}
+
+.insurance-page .ins-badge {
+  border-color: var(--green);
+  background: rgba(46, 125, 50, 0.14);
+}
+
+.insurance-page .ins-badge i {
+  color: var(--green);
+}
+
+.insurance-page .ins-trust b {
+  color: var(--green);
+}
+
+.insurance-page .quote-card {
+  box-shadow: var(--shadow-pop-green) !important;
+}
+
+
+/* Button green theme */
+.insurance-page .btn-red {
+  background: var(--green) !important;
+  border-color: var(--green) !important;
+}
+
+.insurance-page .btn-red:hover {
+  background: var(--green-dark) !important;
+  border-color: var(--green-dark) !important;
+  transform: translate(-2px, -2px) !important;
+}
+
+/* Tier badges with green */
+.insurance-page .tier-gold .tier__badge {
+  background: var(--green) !important;
+}
+
+.insurance-page .tier-gold .tier__price {
+  color: var(--green-dark) !important;
+}
+
+.insurance-page .tier-gold .tier__feat i.yes {
+  color: var(--green) !important;
+}
+
+/* Quote form focus states */
+.insurance-page .quote-card .form__row select:focus {
+  border-color: var(--green) !important;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.16) !important;
+}
+
+/* Footer green accents */
+.insurance-page .footer__address i {
+  color: var(--green) !important;
+}
+
+.insurance-page .footer__address a:hover {
+  color: var(--green) !important;
+}
+
+
+/* Red to green conversion for insurance page */
+.insurance-page .red {
+  color: var(--green) !important;
+}
+
+/* Update scroll animation with green */
+.insurance-page .insurance-scroll {
+  animation: scrollHint 3s ease-in-out infinite;
+}
+
+.insurance-page .logo-item:hover {
+  box-shadow: 4px 4px 0 var(--green) !important;
+}
+
+/* ============================================================
+   INSURANCE LOGO MARQUEE – Phương pháp 1 (truyền thống)
+   Chạy từ trái → phải, vô tận, 1 hàng, không mask, kích thước lớn
+   ============================================================ */
+
+/* Container chính */
+.insurance-logo-marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 1.5rem 0;     /* tạo khoảng cách trên/dưới */
+}
+
+/* Track chứa tất cả logo (gồm 2 lần lặp) */
+.insurance-logo-marquee .logo-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 48px;            /* khoảng cách giữa các logo */
+  width: fit-content;   /* auto-fit theo nội dung */
+  will-change: transform;
+  animation: scrollLeftToRight 42s linear infinite;
+}
+
+/* Dừng khi hover */
+/* insurance-logo-marquee:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Mỗi ô logo */
+.insurance-logo-marquee .logo-item {
+  flex-shrink: 0;
+  height: 84px;          /* chiều cao ô */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hình ảnh bên trong */
+.insurance-logo-marquee .logo-item img {
+  height: 72px;          /* chiều cao ảnh */
+  width: auto;
+  max-width: 180px;      /* chiều rộng tối đa */
+  object-fit: contain;   /* giữ tỉ lệ, không méo */
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  filter: none;          /* không grayscale */
+}
+
+/* Hover ảnh */
+.insurance-logo-marquee .logo-item img:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Keyframes: chạy từ trái sang phải */
+@keyframes scrollLeftToRight {
+  0% {
+    transform: translateX(-50%);   /* bắt đầu ở vị trí nửa track (phần lặp thứ hai) */
+  }
+  100% {
+    transform: translateX(0%);     /* kết thúc tại vị trí ban đầu (phần lặp thứ nhất) */
+  }
+}
+
+/* ============================================================
+   RESPONSIVE – theo bảng khuyến nghị
+   ============================================================ */
+
+/* Tablet (768–1024px) */
+@media (max-width: 1024px) {
+  .insurance-logo-marquee .logo-marquee-track {
+    gap: 36px;
+    animation-duration: 38s;
+  }
+  .insurance-logo-marquee .logo-item {
+    height: 68px;
+  }
+  .insurance-logo-marquee .logo-item img {
+    height: 56px;
+    max-width: 150px;
+  }
+  .insurance-logo-marquee {
+    padding: 1.2rem 0;
+  }
+}
+
+/* Mobile (480–768px) */
+@media (max-width: 768px) {
+  .insurance-logo-marquee .logo-marquee-track {
+    gap: 28px;
+    animation-duration: 32s;
+  }
+  .insurance-logo-marquee .logo-item {
+    height: 52px;
+  }
+  .insurance-logo-marquee .logo-item img {
+    height: 44px;
+    max-width: 110px;
+  }
+  .insurance-logo-marquee {
+    padding: 1rem 0;
+  }
+}
+
+/* Mobile nhỏ (< 480px) */
+@media (max-width: 480px) {
+  .insurance-logo-marquee .logo-marquee-track {
+    gap: 20px;
+    animation-duration: 28s;
+  }
+  .insurance-logo-marquee .logo-item {
+    height: 44px;
+  }
+  .insurance-logo-marquee .logo-item img {
+    height: 36px;
+    max-width: 90px;
+  }
+  .insurance-logo-marquee {
+    padding: 0.8rem 0;
+  }
+}
+
+/* ============================================================
+   TÍNH NĂNG HỖ TRỢ: Tắt animation cho người thích giảm chuyển động
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .insurance-logo-marquee .logo-marquee-track {
+    animation: none !important;
+  }
 }

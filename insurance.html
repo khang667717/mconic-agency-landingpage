@@ -17,9 +17,10 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/insurance.css">
+  
 </head>
 
-<body>
+<body class="insurance-page">
 
   <!-- ==================== NAV ==================== -->
   <nav class="nav" id="nav">
@@ -29,11 +30,10 @@
       </a>
       <ul class="nav__menu">
         <li><a href="index.html#about" class="nav__link">Thông tin</a></li>
-        <li><a href="#" class="nav__link nav__link--accent">Quyền lợi</a></li>
         <li><a href="index.html#services" class="nav__link">Dịch vụ</a></li>
         <li><a href="index.html#advantages" class="nav__link">Ưu điểm</a></li>
-        <li><a href="index.html#resources" class="nav__link">Tài liệu</a></li>
         <li><a href="index.html#contact" class="nav__link">Liên hệ</a></li>
+        <li><a href="#" class="nav__link nav__link--accent">Sản phẩm bảo hiểm</a></li>
       </ul>
       <div class="nav__right">
         <a href="tel:0901234567" class="nav__hotline"><i class="fa-solid fa-phone" aria-hidden="true"></i> 0901 234
@@ -48,11 +48,10 @@
       <button class="nav__close" id="navClose" aria-label="Đóng menu"><i class="fa-solid fa-xmark"
           aria-hidden="true"></i></button>
       <a href="index.html#about" class="nav__link">Thông tin</a>
-      <a href="#" class="nav__link nav__link--accent">Quyền lợi</a>
       <a href="index.html#services" class="nav__link">Dịch vụ</a>
       <a href="index.html#advantages" class="nav__link">Ưu điểm</a>
-      <a href="index.html#resources" class="nav__link">Tài liệu</a>
       <a href="index.html#contact" class="nav__link">Liên hệ</a>
+      <a href="#" class="nav__link nav__link--accent">Sản phẩm bảo hiểm</a>
       <a href="index.html#contact" class="btn btn-red">Bắt đầu dự án</a>
       <a href="tel:0901234567" class="nav__panel-hotline"><i class="fa-solid fa-phone" aria-hidden="true"></i> 0901 234
         567</a>
@@ -65,9 +64,8 @@
     <div class="container ins-hero__grid">
       <div class="ins-hero__content">
         <span class="ins-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> MCONIC Protect</span>
-        <h1>Bảo chứng thành công.<br><span class="red">An tâm</span> tổ chức.</h1>
-        <p class="ins-hero__lede">Gói bảo hiểm sự kiện toàn diện nhất — bảo vệ khách mời, đội ngũ và thiết bị khỏi mọi
-          rủi ro tài chính.</p>
+        <h1>Bảo vệ tài chính<br><span class="red">An tâm</span> phát triển</h1>
+        <p class="ins-hero__lede" style="margin-top: 1.5rem;">Giải pháp bảo hiểm sự kiện toàn diện — bảo vệ khách mời, đội ngũ và đầu tư của bạn trước mọi rủi ro bất ngờ.</p>
         <div class="ins-trust">
           <div><b>500+</b><span>Sự kiện an toàn</span></div>
           <div><b>100%</b><span>Bảo mật dữ liệu</span></div>
@@ -104,14 +102,40 @@
 
   <main>
 
+    <!-- ==================== INSURANCE PARTNERS MARQUEE ==================== -->
+    <div class="insurance-logo-marquee" aria-hidden="true">
+      <div class="logo-marquee-row">
+        <div class="logo-marquee-track">
+          <!-- Lần 1 -->
+          <div class="logo-item"><img src="images/logo-bhnt/Manulife-logo-01.png" alt="Manulife" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Prudential-logo3-01.png" alt="Prudential" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/BAOVIET-life-logo2-01.png" alt="Bảo Việt" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Dai-ichi-life-logo-01.png" alt="Dai-ichi Life" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Generali-life-logo-01.png" alt="Generali" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Hanwhalife-logo-01.png" alt="Hanwha Life" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/MB-ageas-life-logo-01.png" alt="MB Ageas" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Aviva-logo-01.png" alt="Aviva" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Chubb-logo-01.png" alt="Chubb" loading="lazy"></div>
+          <!-- Lần 2 (lặp lại để tạo vô tận) -->
+          <div class="logo-item"><img src="images/logo-bhnt/Manulife-logo-01.png" alt="Manulife" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Prudential-logo3-01.png" alt="Prudential" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/BAOVIET-life-logo2-01.png" alt="Bảo Việt" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Dai-ichi-life-logo-01.png" alt="Dai-ichi Life" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Generali-life-logo-01.png" alt="Generali" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Hanwhalife-logo-01.png" alt="Hanwha Life" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/MB-ageas-life-logo-01.png" alt="MB Ageas" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Aviva-logo-01.png" alt="Aviva" loading="lazy"></div>
+          <div class="logo-item"><img src="images/logo-bhnt/Chubb-logo-01.png" alt="Chubb" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- ==================== PROTECT (about) ==================== -->
     <section class="protect section">
       <div class="container protect__grid">
         <div class="reveal">
-          <span class="kicker">Vì sao chọn chúng tôi</span>
-          <h2>Bảo vệ sự kiện cùng <span class="red">MCONIC.</span></h2>
-          <p>Chúng tôi là chuyên gia tổ chức sự kiện hàng đầu với hơn 10 năm kinh nghiệm. Hiểu rõ những rủi ro tiềm ẩn,
-            gói MCONIC Protect ra đời để mang lại sự an tâm tuyệt đối — từ y tế, thiết bị đến hoãn/hủy do thời tiết.</p>
+          <h2>Hợp tác cùng các công ty bảo hiểm hàng đầu <span class="red">Việt Nam.</span></h2>
+          <p style="margin-top: 1.5rem;">Chúng tôi hợp tác với các công ty bảo hiểm uy tín hàng đầu để mang đến giải pháp bảo vệ tài chính toàn diện cho mọi sự kiện.</p>
         </div>
         <div class="protect__visual reveal">
           <img class="pv1" src="images/ins-space.webp" alt="Không gian sự kiện được bảo vệ">
@@ -257,12 +281,11 @@
           <p class="footer__info">Giải pháp bảo an sự kiện toàn diện, quản trị rủi ro tài chính trực thuộc MCONIC Event
             Agency.</p>
           <address class="footer__address">
-            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Tòa nhà MCONIC, 123 Nguyễn Văn A, Q.1,
-              TP.HCM</span>
+            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> 63A Nam Kỳ Khởi Nghĩa, Ho Chi Minh City, Vietnam</span>
             <a href="tel:0901234567"><i class="fa-solid fa-phone" aria-hidden="true"></i> Hotline: 0901 234 567
               (24/7)</a>
-            <a href="mailto:hello@mconic.vn"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email:
-              hello@mconic.vn</a>
+            <a href="mailto:contact.mconic@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email:
+              contact.mconic@gmail.com</a>
           </address>
           <div class="footer__bct">
             <a href="#" target="_blank" rel="nofollow" aria-label="Đã thông báo Bộ Công Thương">
@@ -301,10 +324,8 @@
           </div>
           <p class="footer__info-sm" style="margin-top: 1.5rem;">Cộng đồng doanh nghiệp:</p>
           <div class="footer__social" style="margin-top: 0;">
-            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://www.facebook.com/mconic.vn/" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="https://www.tiktok.com/@mconic.event" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
           </div>
         </div>
 

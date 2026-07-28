@@ -16,6 +16,9 @@
   --red: #D32F2F;
   --red-dark: #B71C1C;
   --gold: #C8A24B;
+  --green: #2E7D32;
+  --green-light: #4CAF50;
+  --green-dark: #1B5E20;
 
   /* neutrals */
   --line: #E3DACA;
@@ -33,6 +36,7 @@
   --r-lg: 24px;
   --shadow-pop: 6px 6px 0 var(--ink);
   --shadow-pop-red: 6px 6px 0 var(--red);
+  --shadow-pop-green: 6px 6px 0 var(--green);
   --ease: cubic-bezier(.2, .8, .2, 1);
   --sect: clamp(4rem, 9vw, 7.5rem);
 }
@@ -89,7 +93,7 @@ h5,
 h6 {
   font-family: var(--font-display);
   font-weight: 800;
-  line-height: 1.02;
+  line-height: 1.22;
   letter-spacing: -.02em;
   overflow-wrap: anywhere;
 }

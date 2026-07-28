@@ -58,6 +58,7 @@
   color: var(--ink);
   padding: .4rem 0;
   position: relative;
+  transition: color .2s var(--ease);
 }
 
 .nav__link::after {
@@ -69,6 +70,11 @@
   width: 0;
   background: var(--red);
   transition: width .2s var(--ease)
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+  color: var(--red);
 }
 
 .nav__link:hover::after,
@@ -261,6 +267,28 @@
   color: rgba(251, 246, 238, 0.85);
 }
 
+.footer__address span,
+.footer__address a {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .footer__address span,
+  .footer__address a {
+    white-space: normal;
+    display: inline;
+  }
+  
+  .footer__address span br {
+    display: none;
+  }
+}
+
 .footer__address i {
   color: var(--red);
   width: 18px;
@@ -392,6 +420,12 @@
   background: #0077B5;
   border-color: #0077B5;
 }
+
+.footer__social a:has(.fa-tiktok):hover {
+  background: #ff0050;      /* Màu hồng đặc trưng của TikTok */
+  border-color: #ff0050;
+}
+
 
 /* ============================================================
    BRAND COLORS FOR PAYMENT LOGOS (HOVER STATES)

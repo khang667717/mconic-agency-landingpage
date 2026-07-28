@@ -997,3 +997,12 @@
     gap: 2.4rem
   }
 }
+
+
+/* ============================================================
+   ABOUT SECTION SPACING
+   ============================================================ */
+.about__spacing {
+  margin-top: 1.8rem !important;
+  margin-bottom: 2.2rem !important;
+}
