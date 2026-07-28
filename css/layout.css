@@ -122,6 +122,29 @@
   justify-content: center
 }
 
+/* Mobile phone number styling */
+.phone-number {
+  display: inline;
+}
+
+/* Panel CTA group */
+.nav__panel-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.nav__panel-hotline {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--red);
+  font-size: 0.9rem;
+}
+
 /* mobile slide panel */
 .nav__overlay,
 .nav__panel,
@@ -129,18 +152,88 @@
   display: none
 }
 
-@media(max-width:980px) {
+/* ============================================================
+   RESPONSIVE NAVIGATION - 3 BREAKPOINTS
+   ============================================================ */
 
-  .nav__menu,
-  .nav__hotline,
-  .nav__cta {
-    display: none
+/* DESKTOP (> 980px) - Full navigation */
+@media (min-width: 981px) {
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
   }
+  
+  .nav__hotline .phone-number {
+    display: inline;
+  }
+}
 
+/* TABLET (600px - 980px) */
+@media (max-width: 980px) and (min-width: 601px) {
+  .nav__menu {
+    display: none;
+  }
+  
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .nav__hotline .phone-number {
+    display: inline;
+  }
+  
   .nav__burger {
-    display: inline-flex
+    display: inline-flex;
   }
+}
 
+/* MOBILE (< 600px) */
+@media (max-width: 600px) {
+  .nav__menu,
+  .nav__hotline .phone-number {
+    display: none;
+  }
+  
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  /* Only show phone icon, hide number */
+  .nav__hotline {
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(211, 47, 47, 0.1);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nav__hotline i {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  .nav__burger {
+    display: inline-flex;
+  }
+  
+  /* Button adjustments for mobile */
+  .nav__cta {
+    padding: 0.6rem 1rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+}
+
+/* COMMON MOBILE/TABLET STYLES (< 980px) */
+@media (max-width: 980px) {
   .nav__overlay {
     position: fixed;
     inset: 0;
@@ -192,20 +285,6 @@
 
   .nav__panel .nav__link {
     font-size: 1.15rem
-  }
-
-  .nav__panel .btn {
-    margin-top: .5rem
-  }
-
-  .nav__panel-hotline {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--red);
-    margin-top: auto
   }
 }
 
@@ -518,3 +597,232 @@
   text-align: center
 }
 
+/* ============================================================
+   MOBILE NAVIGATION OPTIMIZATION - COMMERCIAL GRADE
+   ============================================================ */
+
+/* Panel Actions - Mobile Panel CTA Group */
+.panel-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;                /* Tăng nhẹ khoảng cách giữa 2 nút để dễ thao tác */
+  width: 100%;
+  margin-top: 0.1rem;       
+  padding-top: 0.3rem;        
+  border-top: 1px solid var(--line);
+}
+
+.panel-hotline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;               /* Giảm nhẹ gap để cân đối */
+  padding: 0.7rem 1.2rem;    
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;       
+  color: var(--ink);
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: 100px;
+  text-align: center;
+  transition: transform 0.18s var(--ease), background-color 0.18s var(--ease), color 0.18s var(--ease);
+}
+
+.panel-hotline i {
+  color: var(--red);
+  font-size: 1rem;
+}
+
+.panel-hotline:hover,
+.panel-hotline:focus-visible {
+  background: var(--paper);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--red);
+}
+
+/* Insurance theme for panel hotline */
+.insurance-page .panel-hotline i {
+  color: var(--green) !important;
+}
+
+.insurance-page .panel-hotline:hover,
+.insurance-page .panel-hotline:focus-visible {
+  box-shadow: 4px 4px 0 var(--green) !important;
+}
+/* ============================================================
+   FLOATING CALL BUTTON - MOBILE ONLY
+   ============================================================ */
+.floating-call-btn {
+  /* Hidden by default */
+  display: none;
+  
+  /* Mobile only */
+  @media (max-width: 600px) {
+    display: flex;
+    position: fixed;
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    right: max(20px, env(safe-area-inset-right, 20px));
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--paper);
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(255, 255, 255, 0.15);
+    transition: transform 0.25s var(--ease), background-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}
+
+.floating-call-btn i {
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* Hover & Active States */
+.floating-call-btn:hover,
+.floating-call-btn:focus-visible {
+  transform: scale(1.12);
+  background: #B71C1C; /* Darker red */
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+.floating-call-btn:active {
+  transform: scale(0.96);
+}
+
+/* Focus ring for accessibility */
+.floating-call-btn:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   UPDATED RESPONSIVE NAVIGATION BREAKPOINTS
+   ============================================================ */
+
+/* DESKTOP (> 980px) - Full navigation */
+@media (min-width: 981px) {
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  
+  .nav__hotline .phone-number {
+    display: inline;
+  }
+  
+  /* Hide floating button on desktop */
+  .floating-call-btn {
+    display: none !important;
+  }
+}
+
+/* TABLET (601px - 980px) */
+@media (max-width: 980px) and (min-width: 601px) {
+  .nav__menu {
+    display: none;
+  }
+  
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .nav__hotline .phone-number {
+    display: inline;
+  }
+  
+  .nav__burger {
+    display: inline-flex;
+  }
+  
+  /* Hide floating button on tablet */
+  .floating-call-btn {
+    display: none !important;
+  }
+}
+
+/* MOBILE (< 600px) - STRICT MOBILE OPTIMIZATION */
+@media (max-width: 600px) {
+  /* Hide ALL elements in nav__right except burger */
+  .nav__right > *:not(.nav__burger) {
+    display: none !important;
+  }
+  
+  /* Only show logo and burger */
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .nav__menu {
+    display: none !important;
+  }
+  
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  
+  /* Burger button styling */
+  .nav__burger {
+    display: inline-flex !important;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Remove any spacing/padding from hidden elements */
+  .nav__hotline,
+  .nav__cta,
+  .nav__right > .nav__hotline,
+  .nav__right > .nav__cta {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    position: absolute !important;
+  }
+  
+  /* Show floating call button */
+  .floating-call-btn {
+    display: flex !important;
+  }
+  
+  /* Panel adjustments for mobile */
+  .nav__panel {
+    padding-bottom: max(1.6rem, env(safe-area-inset-bottom, 1.6rem));
+  }
+  
+  .panel-actions {
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+  
+  .panel-actions .btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .panel-hotline {
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+  }
+}

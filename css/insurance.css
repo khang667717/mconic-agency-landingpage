@@ -1154,3 +1154,38 @@ body.insurance-page {
     animation: none !important;
   }
 }
+/* ============================================================
+   INSURANCE THEME OVERRIDES FOR NAVIGATION
+   ============================================================ */
+
+/* Floating Call Button - Green Theme for Insurance */
+.insurance-page .floating-call-btn {
+  background: var(--green) !important;
+}
+
+.insurance-page .floating-call-btn:hover,
+.insurance-page .floating-call-btn:focus-visible {
+  background: var(--green-dark) !important;
+}
+
+/* Panel hotline in insurance theme */
+.insurance-page .nav__panel .panel-hotline {
+  border-color: var(--green);
+}
+
+.insurance-page .nav__panel .panel-hotline:hover,
+.insurance-page .nav__panel .panel-hotline:focus-visible {
+  box-shadow: 4px 4px 0 var(--green) !important;
+}
+
+/* Button red to green conversion for insurance page */
+.insurance-page .nav__panel .btn-red {
+  background: var(--green) !important;
+  border-color: var(--green) !important;
+}
+
+.insurance-page .nav__panel .btn-red:hover,
+.insurance-page .nav__panel .btn-red:focus-visible {
+  background: var(--green-dark) !important;
+  border-color: var(--green-dark) !important;
+}
