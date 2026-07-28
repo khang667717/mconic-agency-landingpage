@@ -163,7 +163,7 @@
     align-items: center;
     gap: 1.2rem;
   }
-  
+
   .nav__hotline .phone-number {
     display: inline;
   }
@@ -174,17 +174,17 @@
   .nav__menu {
     display: none;
   }
-  
+
   .nav__right {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
-  
+
   .nav__hotline .phone-number {
     display: inline;
   }
-  
+
   .nav__burger {
     display: inline-flex;
   }
@@ -192,17 +192,18 @@
 
 /* MOBILE (< 600px) */
 @media (max-width: 600px) {
+
   .nav__menu,
   .nav__hotline .phone-number {
     display: none;
   }
-  
+
   .nav__right {
     display: flex;
     align-items: center;
     gap: 0.8rem;
   }
-  
+
   /* Only show phone icon, hide number */
   .nav__hotline {
     padding: 0.5rem;
@@ -214,16 +215,16 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .nav__hotline i {
     font-size: 1.1rem;
     margin: 0;
   }
-  
+
   .nav__burger {
     display: inline-flex;
   }
-  
+
   /* Button adjustments for mobile */
   .nav__cta {
     padding: 0.6rem 1rem;
@@ -357,12 +358,13 @@
 }
 
 @media (max-width: 768px) {
+
   .footer__address span,
   .footer__address a {
     white-space: normal;
     display: inline;
   }
-  
+
   .footer__address span br {
     display: none;
   }
@@ -501,7 +503,8 @@
 }
 
 .footer__social a:has(.fa-tiktok):hover {
-  background: #ff0050;      /* Màu hồng đặc trưng của TikTok */
+  background: #ff0050;
+  /* Màu hồng đặc trưng của TikTok */
   border-color: #ff0050;
 }
 
@@ -605,10 +608,11 @@
 .panel-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;                /* Tăng nhẹ khoảng cách giữa 2 nút để dễ thao tác */
+  gap: 0.5rem;
+  /* Tăng nhẹ khoảng cách giữa 2 nút để dễ thao tác */
   width: 100%;
-  margin-top: 0.1rem;       
-  padding-top: 0.3rem;        
+  margin-top: 0.1rem;
+  padding-top: 0.3rem;
   border-top: 1px solid var(--line);
 }
 
@@ -616,11 +620,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;               /* Giảm nhẹ gap để cân đối */
-  padding: 0.7rem 1.2rem;    
+  gap: 0.6rem;
+  /* Giảm nhẹ gap để cân đối */
+  padding: 0.7rem 1.2rem;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.85rem;       
+  font-size: 0.85rem;
   color: var(--ink);
   background: var(--surface);
   border: 2px solid var(--ink);
@@ -650,13 +655,14 @@
 .insurance-page .panel-hotline:focus-visible {
   box-shadow: 4px 4px 0 var(--green) !important;
 }
+
 /* ============================================================
    FLOATING CALL BUTTON - MOBILE ONLY
    ============================================================ */
 .floating-call-btn {
   /* Hidden by default */
   display: none;
-  
+
   /* Mobile only */
   @media (max-width: 600px) {
     display: flex;
@@ -688,7 +694,8 @@
 .floating-call-btn:hover,
 .floating-call-btn:focus-visible {
   transform: scale(1.12);
-  background: #B71C1C; /* Darker red */
+  background: #B71C1C;
+  /* Darker red */
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(255, 255, 255, 0.2);
   outline: none;
 }
@@ -714,11 +721,11 @@
     align-items: center;
     gap: 1.2rem;
   }
-  
+
   .nav__hotline .phone-number {
     display: inline;
   }
-  
+
   /* Hide floating button on desktop */
   .floating-call-btn {
     display: none !important;
@@ -730,21 +737,21 @@
   .nav__menu {
     display: none;
   }
-  
+
   .nav__right {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
-  
+
   .nav__hotline .phone-number {
     display: inline;
   }
-  
+
   .nav__burger {
     display: inline-flex;
   }
-  
+
   /* Hide floating button on tablet */
   .floating-call-btn {
     display: none !important;
@@ -753,11 +760,12 @@
 
 /* MOBILE (< 600px) - STRICT MOBILE OPTIMIZATION */
 @media (max-width: 600px) {
+
   /* Hide ALL elements in nav__right except burger */
-  .nav__right > *:not(.nav__burger) {
+  .nav__right>*:not(.nav__burger) {
     display: none !important;
   }
-  
+
   /* Only show logo and burger */
   .nav__inner {
     display: flex;
@@ -765,17 +773,17 @@
     justify-content: space-between;
     width: 100%;
   }
-  
+
   .nav__menu {
     display: none !important;
   }
-  
+
   .nav__right {
     display: flex;
     align-items: center;
     gap: 0;
   }
-  
+
   /* Burger button styling */
   .nav__burger {
     display: inline-flex !important;
@@ -784,12 +792,12 @@
     margin: 0;
     padding: 0;
   }
-  
+
   /* Remove any spacing/padding from hidden elements */
   .nav__hotline,
   .nav__cta,
-  .nav__right > .nav__hotline,
-  .nav__right > .nav__cta {
+  .nav__right>.nav__hotline,
+  .nav__right>.nav__cta {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
@@ -799,28 +807,28 @@
     visibility: hidden !important;
     position: absolute !important;
   }
-  
+
   /* Show floating call button */
   .floating-call-btn {
     display: flex !important;
   }
-  
+
   /* Panel adjustments for mobile */
   .nav__panel {
     padding-bottom: max(1.6rem, env(safe-area-inset-bottom, 1.6rem));
   }
-  
+
   .panel-actions {
-    margin-top: auto;
-    padding-top: 2rem;
+    margin-top: 0;
+    padding-top: 0.3rem;
   }
-  
+
   .panel-actions .btn {
     width: 100%;
     padding: 1rem;
     font-size: 0.85rem;
   }
-  
+
   .panel-hotline {
     width: 100%;
     padding: 0.85rem 1.2rem;
