@@ -18,7 +18,7 @@
    ```
 5. Lưu Sheet ID vào chỗ an toàn
 
-✅ **Xong:** Sheet ID = `10gHUhGOXVKRLlYXmnW9PVY2Cu2JhGvCfcs1BbhcUlqA` (ví dụ)
+✅ **Xong:**
 
 ---
 
