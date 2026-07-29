@@ -1,23 +1,6 @@
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 
-// Sanitize email subject to prevent header injection
-function sanitizeEmailSubject(subject) {
-  return subject.replace(/[\r\n\t]/g, ' ').trim();
-}
-
-// HTML escape function to prevent email injection and XSS
-function escapeHtmlEmail(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
-
 // Environment variables
 const getEnvVars = () => ({
   googleSheetId: process.env.GOOGLE_SHEET_ID,
@@ -253,7 +236,7 @@ module.exports = async (req, res) => {
       const adminMailOptions = {
         from: `"${env.senderName}" <${env.smtpUser}>`,
         to: env.adminEmail,
-        subject: `[LEAD BẢO HIỂM] Yêu cầu báo giá từ ${escapeHtml(name)}`,
+        subject: `[LEAD BẢO HIỂM] Yêu cầu báo giá từ ${name}`,
         html: `
           <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #161310; max-width: 600px; margin: 0 auto; border: 2px solid #161310; padding: 2rem; border-radius: 12px; background-color: #FBF6EE;">
             <h2 style="color: #D32F2F; text-transform: uppercase; margin-bottom: 1.5rem;">MCONIC Protect - Lead Bảo Hiểm</h2>
@@ -261,11 +244,11 @@ module.exports = async (req, res) => {
             <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
               <tr>
                 <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA; font-weight: bold; width: 150px;">Họ và tên:</td>
-                <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA;">${escapeHtml(name)}</td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA;">${name}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA; font-weight: bold;">Số điện thoại:</td>
-                <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA;">${escapeHtml(cleanedPhone)}</td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA;">${cleanedPhone}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA; font-weight: bold;">Tuổi:</td>
@@ -273,7 +256,7 @@ module.exports = async (req, res) => {
               </tr>
               <tr>
                 <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA; font-weight: bold;">Gói thẻ đề xuất:</td>
-                <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA;">${escapeHtml(recommendedTier || 'N/A')}</td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #E3DACA;">${recommendedTier || 'N/A'}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold;">Thời gian:</td>
