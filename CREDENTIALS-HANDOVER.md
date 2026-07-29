@@ -13,7 +13,7 @@
 | **SMTP_HOST** | smtp.gmail.com | smtp.gmail.com | ⭐ Công khai (OK) |
 | **SMTP_PORT** | 587 | 587 | ⭐ Công khai (OK) |
 | **SMTP_USER** | leduykhang25012005@gmail.com | [Email công ty] | ⭐ Có thể public |
-| **SMTP_PASS** | bppc twet oqss bisr | [Password mới] | 🔴 BẢNG MẬT (Tuyệt đối) |
+| **SMTP_PASS** | ... | [Password mới] | 🔴 BẢNG MẬT (Tuyệt đối) |
 | **ADMIN_EMAIL** | leduykhang25012005@gmail.com | [Email quản lý] | ⭐ Công khai (OK) |
 | **SENDER_NAME** | MCONIC Event Agency | MCONIC Event Agency | ⭐ Công khai (OK) |
 | **google-credentials.json** | [Private Key File] | [File mới] | 🔴 BẢNG MẬT (Tuyệt đối) |
@@ -69,7 +69,7 @@ Hiện tại: leduykhang25012005@gmail.com
 ### 3️⃣ SMTP_PASS (Password SMTP - 🔴 BẢO MẬT CÓ)
 
 ```
-Hiện tại: bppc twet oqss bisr
+Hiện tại: ....
 ```
 
 **⚠️ QUAN TRỌNG:**
@@ -191,10 +191,7 @@ Hiện tại: leduykhang25012005@gmail.com
   "project_id": "mconic-landing-page",
   "private_key_id": "...",
   "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
-  "client_email": "mconic-landing-page@mconic-landing-page.iam.gserviceaccount.com",
-  "client_id": "...",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
+  
   ...
 }
 ```
