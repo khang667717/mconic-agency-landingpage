@@ -6,12 +6,10 @@
     }
   ],
   "functions": {
-    "api/server.js": {
-      "includeFiles": "assets/documents/**"
-    },
     "api/contact.js": {
       "memory": 1024,
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "assets/documents/**"
     },
     "api/quote.js": {
       "memory": 1024,
@@ -19,7 +17,8 @@
     },
     "api/document.js": {
       "memory": 1024,
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "assets/documents/**"
     }
   }
 }
