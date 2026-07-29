@@ -11,8 +11,8 @@ Gmail yêu cầu dùng **App Password** thay vì regular password (vì an toàn)
 
 **Hiện tại:**
 ```
-SMTP_USER = leduykhang25012005@gmail.com
-SMTP_PASS = bppc twet oqss bisr  ← App Password (16 ký tự)
+SMTP_USER = 
+SMTP_PASS = App Password (16 ký tự)
 ```
 
 ---
@@ -63,7 +63,7 @@ bppc twet oqss bisr
 1. **Vào:** https://vercel.com/khang667717/mconic-redesign
 2. **Settings** → **Environment Variables**
 3. **Tìm:** SMTP_PASS
-4. **Paste:** bppc twet oqss bisr
+4. **Paste:** 
 5. **Bấm:** Save (auto redeploy trong 2-3 phút)
 
 ---
