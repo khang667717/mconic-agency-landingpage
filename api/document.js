@@ -109,22 +109,27 @@ async function logLeadToGoogleSheets(lead) {
 
     const quotedTab = `'${env.googleTabName}'`;
 
-    // Check if headers exist
-    let hasHeaders = false;
+    // Check if headers exist and initialize if needed
     try {
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId: env.googleSheetId,
         range: `${quotedTab}!A1:G1`,
       });
-      if (response.data.values && response.data.values.length > 0 && response.data.values[0][0]) {
-        hasHeaders = true;
+      
+      const hasHeaders = response.data.values && response.data.values.length > 0;
+      
+      if (!hasHeaders) {
+        const headers = ['Thời gian', 'Phân loại', 'Họ và tên', 'Số điện thoại', 'Email', 'Tuổi', 'Chi tiết khác'];
+        await sheets.spreadsheets.values.update({
+          spreadsheetId: env.googleSheetId,
+          range: `${quotedTab}!A1:G1`,
+          valueInputOption: 'USER_ENTERED',
+          resource: { values: [headers] }
+        });
+        console.log('✅ Google Sheet headers initialized');
       }
     } catch (e) {
-      console.log('Headers check failed, will initialize');
-    }
-
-    // Initialize headers if needed
-    if (!hasHeaders) {
+      console.warn('Headers check failed, will reinitialize:', e.message);
       const headers = ['Thời gian', 'Phân loại', 'Họ và tên', 'Số điện thoại', 'Email', 'Tuổi', 'Chi tiết khác'];
       try {
         await sheets.spreadsheets.values.update({
@@ -133,9 +138,8 @@ async function logLeadToGoogleSheets(lead) {
           valueInputOption: 'USER_ENTERED',
           resource: { values: [headers] }
         });
-        console.log('Google Sheet headers initialized successfully');
-      } catch (e) {
-        console.error('Failed to initialize headers:', e);
+      } catch (err) {
+        console.error('Failed to initialize headers:', err.message);
       }
     }
 
@@ -150,22 +154,19 @@ async function logLeadToGoogleSheets(lead) {
       lead.details || ''
     ];
 
-    // Use append() with specific range A1:G1 and INSERT_ROWS to prevent overwriting
-    console.log('📌 Range before append:', `${quotedTab}!A1:G1`);
-    console.log('📌 Row data:', row);
-    
+    console.log('📝 Appending row to Google Sheets:', row);
+
+    // Use append() on the entire sheet - it will find the next empty row
     const appendResponse = await sheets.spreadsheets.values.append({
       spreadsheetId: env.googleSheetId,
-      range: `${quotedTab}!A1:G1`,
+      range: `${quotedTab}!A:G`,
       valueInputOption: 'USER_ENTERED',
-      insertDataOption: 'INSERT_ROWS',
       resource: { values: [row] }
     });
     
-    console.log('✅ Append response - Updated Range:', appendResponse.data.updates?.updatedRange);
-    console.log('Document request logged to Google Sheet successfully');
+    console.log('✅ Document request logged to Google Sheets - Updated Range:', appendResponse.data.updates?.updatedRange);
   } catch (error) {
-    console.error('Error logging document request to Google Sheets:', error);
+    console.error('❌ Error logging document request to Google Sheets:', error.message);
   }
 }
 
