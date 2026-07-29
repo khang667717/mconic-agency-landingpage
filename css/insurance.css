@@ -367,7 +367,7 @@
     left: 0;
     width: 74%;
     height: 78%;
-    box-shadow: var(--shadow-pop-red);
+    box-shadow: var(--shadow-pop-green);
     z-index: 1
 }
 
@@ -376,7 +376,7 @@
     right: 0;
     width: 54%;
     height: 60%;
-    box-shadow: var(--shadow-pop);
+    box-shadow: var(--shadow-pop-green);
     z-index: 2
 }
 
