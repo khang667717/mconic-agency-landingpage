@@ -180,7 +180,7 @@ async function logLeadToGoogleSheets(lead) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: `${quotedTab}!A2:G`,
+      range: `${quotedTab}!A:G`,
       valueInputOption: 'USER_ENTERED',
       resource: {
         values: [row]

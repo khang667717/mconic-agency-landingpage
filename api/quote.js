@@ -114,9 +114,10 @@ async function logLeadToGoogleSheets(lead) {
       lead.details || ''
     ];
 
+    // Use append() which properly finds the next empty row
     await sheets.spreadsheets.values.append({
       spreadsheetId: env.googleSheetId,
-      range: `${quotedTab}!A2:G`,
+      range: `${quotedTab}!A:G`,
       valueInputOption: 'USER_ENTERED',
       resource: { values: [row] }
     });
