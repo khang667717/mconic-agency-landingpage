@@ -95,30 +95,37 @@ async function logLeadToGoogleSheets(lead) {
         });
         
         const allRows = allDataResponse.data.values || [];
+        let matchingRowData = null;
         let matchingRowIndex = -1;
 
         // Find row with same name and phone (case-insensitive, trim spaces)
+        // Start from row 2 (index 1) since row 1 is headers
         for (let i = 1; i < allRows.length; i++) {
           const row = allRows[i];
           const rowName = (row[2] || '').trim().toLowerCase();
           const rowPhone = (row[3] || '').trim();
           
           if (rowName === lead.name.toLowerCase().trim() && rowPhone === lead.phone) {
-            matchingRowIndex = i + 1; // A1 notation is 1-indexed
+            matchingRowData = row;
+            matchingRowIndex = i + 1; // A1 notation is 1-indexed (row 2 = index 1, so +1)
+            console.log(`Found matching row at index ${matchingRowIndex}: ${rowName} - ${rowPhone}`);
+            console.log(`Existing email in row: ${row[4]}`);
             break;
           }
         }
 
-        if (matchingRowIndex > 0) {
-          // Update existing row: add age and details, preserve email
+        if (matchingRowIndex > 0 && matchingRowData) {
+          // Update existing row: preserve email, add/update age and details
+          // IMPORTANT: matchingRowData[4] contains the email from the existing contact row - ALWAYS use it
+          const preservedEmail = matchingRowData[4] || ''; // Get email from existing row (will be preserved)
           const updateRow = [
-            new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }), // Thời gian
-            lead.type || 'quote',
-            lead.name || '',
-            lead.phone || '',
-            allRows[matchingRowIndex - 1][4] || '', // Preserve existing email
-            lead.age !== undefined ? lead.age : '',
-            lead.details || ''
+            new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }), // A: Thời gian
+            'quote', // B: Phân loại (updated to quote)
+            lead.name || '', // C: Họ và tên
+            lead.phone || '', // D: Số điện thoại
+            preservedEmail, // E: Email (PRESERVED - never overwrite with empty string)
+            lead.age !== undefined ? lead.age : '', // F: Tuổi
+            lead.details || '' // G: Chi tiết khác
           ];
 
           await sheets.spreadsheets.values.update({
@@ -128,7 +135,7 @@ async function logLeadToGoogleSheets(lead) {
             resource: { values: [updateRow] }
           });
 
-          console.log(`Insurance quote updated existing row ${matchingRowIndex}`);
+          console.log(`Insurance quote updated existing row ${matchingRowIndex}, email preserved: ${matchingRowData[4]}`);
           return;
         }
       } catch (e) {
