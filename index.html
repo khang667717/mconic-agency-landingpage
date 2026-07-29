@@ -4,111 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MCONIC – Công ty thiết kế & tổ chức sự kiện chuyên nghiệp. Pop-art, mạnh mẽ, cam kết không rủi ro.">
-  <meta name="theme-color" content="#D32F2F">
-  <link rel="canonical" href="https://mconic.vn/">
-  <link rel="alternate" hreflang="vi" href="https://mconic.vn/">
-  
-  <!-- Open Graph for Social Sharing -->
-  <meta property="og:title" content="MCONIC — Kiến tạo sự kiện, vang danh thương hiệu">
-  <meta property="og:description" content="Giải pháp tổ chức sự kiện B2B trọn gói theo tiêu chuẩn quốc tế">
-  <meta property="og:image" content="https://mconic.vn/images/og-image.jpg">
-  <meta property="og:url" content="https://mconic.vn/">
-  <meta property="og:type" content="website">
-  
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MCONIC — Kiến tạo sự kiện, vang danh thương hiệu">
-  <meta name="twitter:description" content="Giải pháp tổ chức sự kiện B2B trọn gói">
-  <meta name="twitter:image" content="https://mconic.vn/images/og-image.jpg">
-  
+  <meta name="description"
+    content="MCONIC – Công ty thiết kế & tổ chức sự kiện chuyên nghiệp. Pop-art, mạnh mẽ, cam kết không rủi ro.">
   <title>MCONIC — Kiến tạo sự kiện, vang danh thương hiệu</title>
-  
-  <!-- Font Preconnect & DNS Prefetch for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
-  <!-- Critical CSS (inline for FCP optimization) -->
-  <style>
-    :root {
-      --ink: #161310;
-      --ink-soft: #3a342d;
-      --paper: #FBF6EE;
-      --paper-2: #F1E9DA;
-      --surface: #FFFDF8;
-      --red: #D32F2F;
-      --red-dark: #B71C1C;
-      --gold: #C8A24B;
-      --green: #2E7D32;
-      --green-light: #4CAF50;
-      --green-dark: #1B5E20;
-      --line: #E3DACA;
-      --line-strong: #161310;
-      --muted: #8A8074;
-      --font-display: 'Archivo', 'Georgia', serif;
-      --font-body: 'Public Sans', system-ui, -apple-system, sans-serif;
-      --maxw: 1240px;
-      --r-sm: 6px;
-      --r-md: 14px;
-      --r-lg: 24px;
-      --shadow-pop: 6px 6px 0 var(--ink);
-      --shadow-pop-red: 6px 6px 0 var(--red);
-      --shadow-pop-green: 6px 6px 0 var(--green);
-      --ease: cubic-bezier(.2, .8, .2, 1);
-      --sect: clamp(4rem, 9vw, 7.5rem);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { overflow-x: clip; scroll-behavior: smooth; }
-    body { font-family: var(--font-body); background: var(--paper); color: var(--ink); line-height: 1.6; overflow-x: clip; -webkit-font-smoothing: antialiased; }
-    img { max-width: 100%; display: block; height: auto; }
-    a { text-decoration: none; color: inherit; }
-    button { font-family: inherit; cursor: pointer; border: none; background: none; }
-    .btn { font-size: 0.875rem; font-weight: 600; padding: 0.875rem 1.5rem; border-radius: var(--r-md); display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s var(--ease); }
-    .btn-red { background: var(--red); color: var(--paper); box-shadow: var(--shadow-pop-red); }
-    .btn-red:hover { transform: translate(-3px, -3px); box-shadow: 12px 12px 0 var(--red); }
-    nav { background: var(--paper); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
-    .nav__inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
-    .nav__logo img { height: auto; width: auto; }
-    .nav__menu { display: flex; gap: 2rem; }
-    .nav__link { font-size: 0.875rem; font-weight: 500; transition: color 0.3s var(--ease); }
-    .nav__link:hover { color: var(--red); }
-    .hero { padding: 8rem 2rem 4rem; }
-    h1 { font-family: var(--font-display); font-size: clamp(2rem, 8vw, 4rem); font-weight: 900; line-height: 1.2; margin: 1rem 0; }
-    .red { color: var(--red); }
-  </style>
-  
-  <!-- Preload non-critical CSS -->
-  <link rel="preload" href="/dist/css/main.css" as="style">
-  <link rel="stylesheet" href="/dist/css/main.css">
-  
-  <!-- Structured Data (ld+json) for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "MCONIC Event Agency",
-    "url": "https://mconic.vn",
-    "logo": "https://mconic.vn/images/logo.png",
-    "description": "Công ty thiết kế & tổ chức sự kiện chuyên nghiệp. Giải pháp trọn gói theo tiêu chuẩn quốc tế.",
-    "telephone": "+84901234567",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "123 Nguyễn Văn A",
-      "addressLocality": "TP.HCM",
-      "addressCountry": "VN"
-    },
-    "areaServed": "VN",
-    "priceRange": "$$$$",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "ratingCount": "500"
-    }
-  }
-  </script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/style.css">
   
 </head>
 
@@ -564,8 +472,7 @@
     <i class="fa-solid fa-phone" aria-hidden="true"></i>
   </a>
 
-  <!-- Bundled & Minified JavaScript (compiled from js/script.js) -->
-  <script src="/dist/js/main.js" defer></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>
