@@ -115,7 +115,7 @@ function getMailTransporter() {
     return null;
   }
   
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: env.smtpHost,
     port: env.smtpPort,
     secure: env.smtpSecure,
@@ -157,13 +157,19 @@ module.exports = async (req, res) => {
   try {
     const env = getEnvVars();
     
-    // Log to Google Sheets
-    await logLeadToGoogleSheets({ 
-      type: 'contact', 
-      name, 
-      phone: cleanedPhone, 
-      email 
-    });
+    // Log to Google Sheets (non-blocking)
+    try {
+      await logLeadToGoogleSheets({ 
+        type: 'contact', 
+        name, 
+        phone: cleanedPhone, 
+        email 
+      });
+      console.log('Logged to Google Sheets successfully');
+    } catch (err) {
+      console.error('Failed to log to Google Sheets:', err);
+      // Continue processing even if Sheets fails
+    }
 
     // Send emails
     const transporter = getMailTransporter();
@@ -202,8 +208,10 @@ module.exports = async (req, res) => {
           transporter.sendMail(adminMailOptions),
           transporter.sendMail(userMailOptions)
         ]);
+        console.log('Emails sent successfully');
       } catch (err) {
         console.error('Failed to send emails:', err);
+        // Don't fail the request if email fails
       }
     }
 

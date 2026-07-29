@@ -101,7 +101,7 @@ function getMailTransporter() {
     return null;
   }
   
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: env.smtpHost,
     port: env.smtpPort,
     secure: env.smtpSecure,
@@ -144,13 +144,19 @@ module.exports = async (req, res) => {
   try {
     const env = getEnvVars();
     
-    // Log to Google Sheets
-    await logLeadToGoogleSheets({ 
-      type: 'document', 
-      name, 
-      email, 
-      details: docId 
-    });
+    // Log to Google Sheets (non-blocking)
+    try {
+      await logLeadToGoogleSheets({ 
+        type: 'document', 
+        name, 
+        email, 
+        details: docId 
+      });
+      console.log('Document request logged to Google Sheets');
+    } catch (err) {
+      console.error('Failed to log to Google Sheets:', err);
+      // Continue processing even if Sheets fails
+    }
 
     // Send confirmation email
     const transporter = getMailTransporter();
@@ -172,8 +178,10 @@ module.exports = async (req, res) => {
 
       try {
         await transporter.sendMail(mailOptions);
+        console.log('Document confirmation email sent');
       } catch (err) {
         console.error('Failed to send document email:', err);
+        // Don't fail the request if email fails
       }
     }
 
