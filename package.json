@@ -5,9 +5,7 @@
   "main": "api/server.js",
   "scripts": {
     "start": "node api/server.js",
-    "dev": "node --watch api/server.js",
-    "build": "echo 'Build completed - static files ready'",
-    "vercel-build": "echo 'Static build completed'"
+    "dev": "node --watch api/server.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
