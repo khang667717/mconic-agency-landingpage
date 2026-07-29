@@ -10,13 +10,18 @@ const getEnvVars = () => {
   // Try Base64 decode first (preferred method)
   if (!googleCredentials && process.env.GOOGLE_CREDENTIALS_BASE64) {
     try {
-      googleCredentials = Buffer.from(
+      const decoded = Buffer.from(
         process.env.GOOGLE_CREDENTIALS_BASE64, 
         'base64'
       ).toString('utf-8');
+      
+      // Validate it's valid JSON before using
+      JSON.parse(decoded);
+      googleCredentials = decoded;
       console.log('✅ Base64 credentials decoded successfully');
     } catch (e) {
-      console.warn('❌ Failed to decode Base64 credentials:', e.message);
+      console.warn('❌ Failed to decode/validate Base64 credentials:', e.message);
+      // Continue to fallback methods
     }
   }
   
