@@ -145,6 +145,12 @@ module.exports = async (req, res) => {
     return res.status(400).json({ success: false, message: 'Vui lòng cung cấp đầy đủ thông tin.' });
   }
 
+  // Security: Validate docId to prevent directory traversal attacks
+  // Only allow alphanumeric, hyphens, and underscores
+  if (!/^[a-zA-Z0-9_-]+$/.test(docId)) {
+    return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
+  }
+
   const docConfig = DOCUMENTS_MAP[docId];
   if (!docConfig) {
     return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });

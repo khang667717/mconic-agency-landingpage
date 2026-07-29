@@ -408,12 +408,27 @@ app.post('/api/leads/document', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Vui lòng cung cấp đầy đủ thông tin.' });
   }
 
+  // Security: Validate docId to prevent directory traversal attacks
+  // Only allow alphanumeric, hyphens, and underscores
+  if (!/^[a-zA-Z0-9_-]+$/.test(docId)) {
+    return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
+  }
+
   const docConfig = DOCUMENTS_MAP[docId];
   if (!docConfig) {
     return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
   }
 
   const docPath = path.join(docsDir, docConfig.file);
+  
+  // Security: Verify that the resolved path is still within docsDir (prevents directory traversal)
+  const resolvedPath = path.resolve(docPath);
+  const resolvedDocsDir = path.resolve(docsDir);
+  if (!resolvedPath.startsWith(resolvedDocsDir + path.sep) && resolvedPath !== resolvedDocsDir) {
+    logger.error(`Directory traversal attempt detected: ${resolvedPath}`);
+    return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
+  }
+
   if (!fs.existsSync(docPath)) {
     logger.error(`Document file not found at path: ${docPath}`);
     return res.status(404).json({ success: false, message: 'Tài liệu này hiện chưa sẵn sàng trên hệ thống. Vui lòng quay lại sau.' });
