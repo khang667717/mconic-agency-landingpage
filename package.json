@@ -5,7 +5,8 @@
   "main": "api/server.js",
   "scripts": {
     "start": "node api/server.js",
-    "dev": "node --watch api/server.js"
+    "dev": "node --watch api/server.js",
+    "build": "echo 'Build completed - static files ready'"
   },
   "dependencies": {
     "compression": "^1.7.4",

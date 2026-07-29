@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tier = INSURANCE_TIERS.find(t => age >= t.min && age <= t.max);
 
     // Save lead to backend database asynchronously
-    fetch('/api/quote', {
+    fetch('/api/leads/quote', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
