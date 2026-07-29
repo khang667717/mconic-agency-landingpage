@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "outputDirectory": ".",
   "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "public": true,
   "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/"
+    },
     {
       "source": "/api/(.*)",
       "destination": "/api/server"
