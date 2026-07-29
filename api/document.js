@@ -1,38 +1,39 @@
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 
 // Environment variables
-const getEnvVars = () => ({
-  googleSheetId: process.env.GOOGLE_SHEET_ID,
-  googleCredentials: process.env.GOOGLE_CREDENTIALS_JSON,
-  googleTabName: process.env.GOOGLE_SHEET_TAB_NAME || 'Trang tính1',
-  smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
-  smtpPort: parseInt(process.env.SMTP_PORT || '587'),
-  smtpSecure: process.env.SMTP_SECURE === 'true',
-  smtpUser: process.env.SMTP_USER,
-  smtpPass: process.env.SMTP_PASS,
-  senderName: process.env.SENDER_NAME || 'MCONIC Event Agency'
-});
-
-// Document mapping
-const DOCUMENTS_MAP = {
-  'company-profile': {
-    file: 'company-profile.pdf',
-    title: 'MCONIC Company Profile 2026'
-  },
-  'event-checklist': {
-    file: 'event-checklist.pdf',
-    title: 'MCONIC Event Master Checklist'
-  },
-  'industry-report': {
-    file: 'industry-report.pdf',
-    title: 'MCONIC Báo cáo Ngành 2026'
+const getEnvVars = () => {
+  let googleCredentials = process.env.GOOGLE_CREDENTIALS_JSON;
+  
+  // If not in env, try reading from file
+  if (!googleCredentials) {
+    try {
+      const credPath = path.join(process.cwd(), 'google-credentials.json');
+      if (fs.existsSync(credPath)) {
+        googleCredentials = fs.readFileSync(credPath, 'utf-8');
+      }
+    } catch (e) {
+      console.warn('Could not read google-credentials.json from file');
+    }
   }
+  
+  return {
+    googleSheetId: process.env.GOOGLE_SHEET_ID,
+    googleCredentials: googleCredentials,
+    googleTabName: process.env.GOOGLE_SHEET_TAB_NAME || 'Trang tính1',
+    smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
+    smtpPort: parseInt(process.env.SMTP_PORT || '587'),
+    smtpSecure: process.env.SMTP_SECURE === 'true',
+    smtpUser: process.env.SMTP_USER,
+    smtpPass: process.env.SMTP_PASS,
+    adminEmail: process.env.ADMIN_EMAIL,
+    senderName: process.env.SENDER_NAME || 'MCONIC Event Agency'
+  };
 };
 
-// Google Sheets client (same as contact.js)
+// Google Sheets client
 let googleSheetsClient = null;
 
 async function getGoogleSheetsClient() {
@@ -71,6 +72,37 @@ async function logLeadToGoogleSheets(lead) {
     if (!sheets || !env.googleSheetId) return;
 
     const quotedTab = `'${env.googleTabName}'`;
+
+    // Check if headers exist
+    let hasHeaders = false;
+    try {
+      const response = await sheets.spreadsheets.values.get({
+        spreadsheetId: env.googleSheetId,
+        range: `${quotedTab}!A1:G1`,
+      });
+      if (response.data.values && response.data.values.length > 0 && response.data.values[0][0]) {
+        hasHeaders = true;
+      }
+    } catch (e) {
+      console.log('Headers check failed, will initialize');
+    }
+
+    // Initialize headers if needed
+    if (!hasHeaders) {
+      const headers = ['Thời gian', 'Phân loại', 'Họ và tên', 'Số điện thoại', 'Email', 'Tuổi', 'Chi tiết khác'];
+      try {
+        await sheets.spreadsheets.values.update({
+          spreadsheetId: env.googleSheetId,
+          range: `${quotedTab}!A1:G1`,
+          valueInputOption: 'USER_ENTERED',
+          resource: { values: [headers] }
+        });
+        console.log('Google Sheet headers initialized successfully');
+      } catch (e) {
+        console.error('Failed to initialize headers:', e);
+      }
+    }
+
     const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
     const row = [
       timestamp,
@@ -82,16 +114,22 @@ async function logLeadToGoogleSheets(lead) {
       lead.details || ''
     ];
 
-    await sheets.spreadsheets.values.append({
+    // Use append() with specific range A1:G1 and INSERT_ROWS to prevent overwriting
+    console.log('📌 Range before append:', `${quotedTab}!A1:G1`);
+    console.log('📌 Row data:', row);
+    
+    const appendResponse = await sheets.spreadsheets.values.append({
       spreadsheetId: env.googleSheetId,
-      range: `${quotedTab}!A:G`,
+      range: `${quotedTab}!A1:G1`,
       valueInputOption: 'USER_ENTERED',
+      insertDataOption: 'INSERT_ROWS',
       resource: { values: [row] }
     });
     
-    console.log('Document lead logged to Google Sheet successfully');
+    console.log('✅ Append response - Updated Range:', appendResponse.data.updates?.updatedRange);
+    console.log('Document request logged to Google Sheet successfully');
   } catch (error) {
-    console.error('Error logging document lead to Google Sheets:', error);
+    console.error('Error logging document request to Google Sheets:', error);
   }
 }
 
@@ -111,6 +149,21 @@ function getMailTransporter() {
     }
   });
 }
+
+const DOCUMENTS_MAP = {
+  'company-profile': {
+    file: 'company-profile.pdf',
+    title: 'MCONIC Company Profile 2026'
+  },
+  'event-checklist': {
+    file: 'event-checklist.pdf',
+    title: 'MCONIC Event Master Checklist'
+  },
+  'industry-report': {
+    file: 'industry-report.pdf',
+    title: 'MCONIC Báo cáo Ngành 2026'
+  }
+};
 
 module.exports = async (req, res) => {
   // Enable CORS
@@ -138,13 +191,18 @@ module.exports = async (req, res) => {
     return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
   }
 
-  // For Vercel serverless, we'll just log the request and send confirmation email
-  // Documents would need to be uploaded to Vercel or served from external storage
+  const docsDir = path.join(process.cwd(), 'assets', 'documents');
+  const docPath = path.join(docsDir, docConfig.file);
+  
+  if (!fs.existsSync(docPath)) {
+    console.error(`Document file not found at path: ${docPath}`);
+    return res.status(404).json({ success: false, message: 'Tài liệu này hiện chưa sẵn sàng trên hệ thống. Vui lòng quay lại sau.' });
+  }
 
   try {
     const env = getEnvVars();
     
-    // Log to Google Sheets (non-blocking)
+    // Log to Google Sheets
     try {
       await logLeadToGoogleSheets({ 
         type: 'document', 
@@ -155,46 +213,41 @@ module.exports = async (req, res) => {
       console.log('Document request logged to Google Sheets');
     } catch (err) {
       console.error('Failed to log to Google Sheets:', err);
-      // Continue processing even if Sheets fails
     }
 
-    // Send confirmation email
+    // Send document to user
     const transporter = getMailTransporter();
     if (transporter) {
       const mailOptions = {
         from: `"${env.senderName}" <${env.smtpUser}>`,
         to: email,
-        subject: `Yêu cầu tài liệu: ${docConfig.title} - MCONIC`,
+        subject: `Tài liệu của bạn: ${docConfig.title} - MCONIC`,
         html: `
-          <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #161310; max-width: 600px; margin: 0 auto; border: 2px solid #161310; padding: 2rem; border-radius: 12px; background-color: #FBF6EE;">
-            <h2 style="color: #D32F2F; text-transform: uppercase; margin-bottom: 1.5rem;">MCONIC Event Agency</h2>
-            <p>Xin chào <strong>${name}</strong>,</p>
-            <p>Cảm ơn bạn đã quan tâm đến tài liệu <strong>${docConfig.title}</strong>.</p>
-            <p>Chúng tôi đã ghi nhận yêu cầu của bạn và sẽ gửi tài liệu qua email trong thời gian sớm nhất.</p>
-            <p>Nếu cần hỗ trợ thêm, vui lòng liên hệ: <strong>0901 234 567</strong></p>
-          </div>
-        `
+          <h3>Xin chào ${name},</h3>
+          <p>Cảm ơn bạn đã quan tâm đến tài liệu chuyên môn của MCONIC Event Agency.</p>
+          <p>Chúng tôi xin gửi kèm tài liệu <strong>${docConfig.title}</strong> mà bạn đã yêu cầu ở file đính kèm dưới đây.</p>
+          <p>Nếu bạn cần tư vấn thêm về dịch vụ tổ chức sự kiện trọn gói, vui lòng liên hệ hotline <strong>0901 234 567</strong>.</p>
+          <br>
+          <p>Trân trọng,</p>
+          <p><strong>Đội ngũ MCONIC</strong></p>
+        `,
+        attachments: [{
+          filename: docConfig.file,
+          path: docPath
+        }]
       };
 
       try {
         await transporter.sendMail(mailOptions);
-        console.log('Document confirmation email sent');
+        console.log('Document email sent successfully');
       } catch (err) {
         console.error('Failed to send document email:', err);
-        // Don't fail the request if email fails
       }
     }
 
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Yêu cầu tài liệu đã được ghi nhận. Chúng tôi sẽ gửi tài liệu qua email sớm nhất!' 
-    });
-    
+    return res.status(200).json({ success: true, message: 'Tài liệu đã được gửi tới email của bạn thành công!' });
   } catch (error) {
     console.error('Error handling document request:', error);
-    return res.status(500).json({ 
-      success: false, 
-      message: 'Đã xảy ra lỗi trên hệ thống. Vui lòng thử lại sau.' 
-    });
+    return res.status(500).json({ success: false, message: 'Đã xảy ra lỗi trên hệ thống. Vui lòng thử lại sau.' });
   }
 };

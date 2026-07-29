@@ -114,14 +114,19 @@ async function logLeadToGoogleSheets(lead) {
       lead.details || ''
     ];
 
-    // Use append() which properly finds the next empty row
-    await sheets.spreadsheets.values.append({
+    // Use append() with specific range A1:G1 and INSERT_ROWS to prevent overwriting
+    console.log('📌 Range before append:', `${quotedTab}!A1:G1`);
+    console.log('📌 Row data:', row);
+    
+    const appendResponse = await sheets.spreadsheets.values.append({
       spreadsheetId: env.googleSheetId,
-      range: `${quotedTab}!A:G`,
+      range: `${quotedTab}!A1:G1`,
       valueInputOption: 'USER_ENTERED',
+      insertDataOption: 'INSERT_ROWS',
       resource: { values: [row] }
     });
     
+    console.log('✅ Append response - Updated Range:', appendResponse.data.updates?.updatedRange);
     console.log('Insurance quote logged to Google Sheet successfully');
   } catch (error) {
     console.error('Error logging insurance quote to Google Sheets:', error);
