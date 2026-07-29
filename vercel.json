@@ -6,6 +6,9 @@
     }
   ],
   "functions": {
+    "api/server.js": {
+      "includeFiles": "assets/documents/**"
+    },
     "api/contact.js": {
       "memory": 1024,
       "maxDuration": 60
