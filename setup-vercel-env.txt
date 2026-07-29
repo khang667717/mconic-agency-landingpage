@@ -1,31 +1,65 @@
-HƯỚNG DẪN KHẮC PHỤC KẾT NỐI GOOGLE SHEETS:
+HƯỚNG DẪN KHẮC PHỤC "LỖI KẾT NỐI" - CẬP NHẬT KHẨN CẤP
 
-=== BƯỚC 1: KIỂM TRA QUYỀN TRÊN GOOGLE SHEET ===
-1. Mở Google Sheet: https://docs.google.com/spreadsheets/d/10gHUhGOXVKRLlYXmnW9PVY2Cu2JhGvCfcs1BbhcUlqA/edit
-2. Click "Chia sẻ" (Share) ở góc trên bên phải
-3. Thêm email service account: mconic-sheets-logger@mconic-redesign.iam.gserviceaccount.com
-4. Chọn quyền "Trình chỉnh sửa" (Editor)
-5. Click "Gửi"
+=== BƯỚC 1: SET ENVIRONMENT VARIABLES TRÊN VERCEL (QUAN TRỌNG NHẤT) ===
 
-=== BƯỚC 2: SETUP ENVIRONMENT VARIABLES TRÊN VERCEL ===
 1. Truy cập: https://vercel.com/dashboard
-2. Chọn project "mconic-redesign"
-3. Settings → Environment Variables
-4. Thêm:
+2. Chọn project "mconic-redesign" 
+3. Vào Settings → Environment Variables
+4. Thêm TỪNG BIẾN sau (click "Add New"):
 
-Tên: GOOGLE_CREDENTIALS_JSON
-Giá trị: {"type":"service_account","project_id":"mconic-redesign","private_key_id":"8434a44d9d828369fcab90d8b229725c3ff1bce7","private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDsq0mtIEr7s4U3\nWv8wDrVMZzYx7UHgPUgVLToIgB5U0RtLtdt6S+d8nV23bzWxXKIvwJEYaC74jtA6\nXVHrPSfTeFZvkjb9uvzr3vgd4NtAwVgf/hh/h7ojJ3o2mDxuprB6i3bA9BsXkzkI\n/LPTegUKIRkSvRSIpjE59PK0W79eJjk5rWiFCFw8+UvDzK2zD/zGKMANLws9PvIL\nVXgmPpxxjZ5/lCB5DPUziLCtwkTj+vC+3O1FnIDPEeN/R587WmvQyFkD3JBR5lg5\nvJSbBDmXwbSbdGa2rXfFLxWMty9V8zdsOv0anP0opxbnZUZDhtHmT9K2pRGgo8IP\nFGCJf+dfAgMBAAECggEAbyDa3o0cSGX6Nozm6HTvkmmgW/8xAI8l6rOq3VTzaRYq\n//jrjthXYP8vgzOX/akmis+cEd7Rt2qvwcgR8ChuK/EEfS0l3yxPGJ5A2R69NQHU\nVGlmrXNY5qrhywLe1YI1ucUExQOaOQ6rKFooQjO4bBIwiMj5/FQ1JyaqVCAEkrru\nxoF7hIvpN/rA0EaPskt+nz3G7E4bBiJ+Lu9KwnYpbNb8loaJm3M1sW0je4kKaMTt\nHchyaqwMhP/FxLAs8NSH4islkaIZcZhAmuHzWmfToiwDT/yywFPUWiqkOrkhrS8V\n+T4iW1o7JIvHlynRnfSqHN4fTyIMbDAS7qIl5nYImQKBgQD8a+vV6YGMHlMefDIj\nQwqmWM2MkAxZ5u59cxgqRwQe1f7zxEnUkvxA9N192OdsKCRIYPyezjYnt8MnJArs\nKN9sEaiCN20wp7VrYpjRYCfupJfpE1cn2WhjvHC+09eOGkRDLeBtz8/C3bpCPhdZ\nbIzk4xSuMmXelzkKL6E5QFU+GwKBgQDwBjLCswYv1JxFS95B7BaqrxstSDwhIkqY\noyRGYO4sWyxbo4e5BNSSw5DchlYCdHvbYZCs8a9YcReGTdxTwva2hGAfO9h5nT/S\nom0PJ4AxaRza4VXRGn4h6ycnlXLFyt0F9dP2Qq+O36Tpd7QGnSPvpTMa47AESlvo\n0vzA1z9ADQKBgQDYEASZYLuL1XUuVf6QolUeWErxc2evGHWxme/oWEtVnbUSsUTF\nGV+ktjRVAXHt6VpNPf9ea4J9ctUvzrEuvjmoBmFnvMvQ5uzqU0YdiiIEKo0Ba5Wh\nvX2WSXl0Tl5m+2LM4hsFw+jBkwtYok9YMwtS7HEKPodmBalEZ8qn98I/WwKBgCDW\nWD92ypPknHSGiqOuLvOu/SLWzRMjY906BI50WGFNH+ZxmvHfDU3+32SsJDw1v3Qm\nBusCLaEF59gB8vCqraIOvi/Hujf5IXAptI3sM4eO/9maFmmDHFp7l2G8+nTA6jgU\nh6kbOnVrd15ReBmnifERQsqc98m+epCBvP6M9CRJAoGAS6vwslhRDSSt5ERklvsG\nZ/eVj4XxM/f252xSdEx6Ak3M0Kar3k5kaGwBqKykkKHs1e6J4rrtDTfoFsnrq9FO\nBByXT9k6vqoeW7OvFfos4hIuofp/yG2/WR0bm9qLRJtbSasONKd4dAOo/E+8ogrR\n2PyPgQ/siUstJvUNigSEmIU=\n-----END PRIVATE KEY-----\n","client_email":"mconic-sheets-logger@mconic-redesign.iam.gserviceaccount.com","client_id":"101411074514848188596","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/mconic-sheets-logger%40mconic-redesign.iam.gserviceaccount.com","universe_domain":"googleapis.com"}
+   Tên: GOOGLE_CREDENTIALS_JSON
+   Value: {"type":"service_account","project_id":"mconic-redesign","private_key_id":"8434a44d9d828369fcab90d8b229725c3ff1bce7","private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDsq0mtIEr7s4U3\nWv8wDrVMZzYx7UHgPUgVLToIgB5U0RtLtdt6S+d8nV23bzWxXKIvwJEYaC74jtA6\nXVHrPSfTeFZvkjb9uvzr3vgd4NtAwVgf/hh/h7ojJ3o2mDxuprB6i3bA9BsXkzkI\n/LPTegUKIRkSvRSIpjE59PK0W79eJjk5rWiFCFw8+UvDzK2zD/zGKMANLws9PvIL\nVXgmPpxxjZ5/lCB5DPUziLCtwkTj+vC+3O1FnIDPEeN/R587WmvQyFkD3JBR5lg5\nvJSbBDmXwbSbdGa2rXfFLxWMty9V8zdsOv0anP0opxbnZUZDhtHmT9K2pRGgo8IP\nFGCJf+dfAgMBAAECggEAbyDa3o0cSGX6Nozm6HTvkmmgW/8xAI8l6rOq3VTzaRYq\n//jrjthXYP8vgzOX/akmis+cEd7Rt2qvwcgR8ChuK/EEfS0l3yxPGJ5A2R69NQHU\nVGlmrXNY5qrhywLe1YI1ucUExQOaOQ6rKFooQjO4bBIwiMj5/FQ1JyaqVCAEkrru\nxoF7hIvpN/rA0EaPskt+nz3G7E4bBiJ+Lu9KwnYpbNb8loaJm3M1sW0je4kKaMTt\nHchyaqwMhP/FxLAs8NSH4islkaIZcZhAmuHzWmfToiwDT/yywFPUWiqkOrkhrS8V\n+T4iW1o7JIvHlynRnfSqHN4fTyIMbDAS7qIl5nYImQKBgQD8a+vV6YGMHlMefDIj\nQwqmWM2MkAxZ5u59cxgqRwQe1f7zxEnUkvxA9N192OdsKCRIYPyezjYnt8MnJArs\nKN9sEaiCN20wp7VrYpjRYCfupJfpE1cn2WhjvHC+09eOGkRDLeBtz8/C3bpCPhdZ\nbIzk4xSuMmXelzkKL6E5QFU+GwKBgQDwBjLCswYv1JxFS95B7BaqrxstSDwhIkqY\noyRGYO4sWyxbo4e5BNSSw5DchlYCdHvbYZCs8a9YcReGTdxTwva2hGAfO9h5nT/S\nom0PJ4AxaRza4VXRGn4h6ycnlXLFyt0F9dP2Qq+O36Tpd7QGnSPvpTMa47AESlvo\n0vzA1z9ADQKBgQDYEASZYLuL1XUuVf6QolUeWErxc2evGHWxme/oWEtVnbUSsUTF\nGV+ktjRVAXHt6VpNPf9ea4J9ctUvzrEuvjmoBmFnvMvQ5uzqU0YdiiIEKo0Ba5Wh\nvX2WSXl0Tl5m+2LM4hsFw+jBkwtYok9YMwtS7HEKPodmBalEZ8qn98I/WwKBgCDW\nWD92ypPknHSGiqOuLvOu/SLWzRMjY906BI50WGFNH+ZxmvHfDU3+32SsJDw1v3Qm\nBusCLaEF59gB8vCqraIOvi/Hujf5IXAptI3sM4eO/9maFmmDHFp7l2G8+nTA6jgU\nh6kbOnVrd15ReBmnifERQsqc98m+epCBvP6M9CRJAoGAS6vwslhRDSSt5ERklvsG\nZ/eVj4XxM/f252xSdEx6Ak3M0Kar3k5kaGwBqKykkKHs1e6J4rrtDTfoFsnrq9FO\nBByXT9k6vqoeW7OvFfos4hIuofp/yG2/WR0bm9qLRJtbSasONKd4dAOo/E+8ogrR\n2PyPgQ/siUstJvUNigSEmIU=\n-----END PRIVATE KEY-----\n","client_email":"mconic-sheets-logger@mconic-redesign.iam.gserviceaccount.com","client_id":"101411074514848188596","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/mconic-sheets-logger%40mconic-redesign.iam.gserviceaccount.com","universe_domain":"googleapis.com"}
+   Environment: Production, Preview, Development
 
-Tên: GOOGLE_SHEET_ID  
-Giá trị: 10gHUhGOXVKRLlYXmnW9PVY2Cu2JhGvCfcs1BbhcUlqA
+   Tên: GOOGLE_SHEET_ID
+   Value: 10gHUhGOXVKRLlYXmnW9PVY2Cu2JhGvCfcs1BbhcUlqA
+   Environment: Production, Preview, Development
 
-Tên: GOOGLE_SHEET_TAB_NAME
-Giá trị: Trang tính1
+   Tên: GOOGLE_SHEET_TAB_NAME  
+   Value: Trang tính1
+   Environment: Production, Preview, Development
 
-=== BƯỚC 3: DEPLOY LẠI ===
-Sau khi thêm biến môi trường, Vercel sẽ tự động deploy lại
+   Tên: SMTP_HOST
+   Value: smtp.gmail.com
+   Environment: Production, Preview, Development
+
+   Tên: SMTP_PORT
+   Value: 587
+   Environment: Production, Preview, Development
+
+   Tên: SMTP_SECURE
+   Value: false
+   Environment: Production, Preview, Development
+
+   Tên: SMTP_USER
+   Value: leduykhang25012005@gmail.com
+   Environment: Production, Preview, Development
+
+   Tên: SMTP_PASS
+   Value: bppc twet oqss bisr
+   Environment: Production, Preview, Development
+
+   Tên: ADMIN_EMAIL
+   Value: leduykhang25012005@gmail.com
+   Environment: Production, Preview, Development
+
+   Tên: SENDER_NAME
+   Value: MCONIC Event Agency
+   Environment: Production, Preview, Development
+
+=== BƯỚC 2: SHARE GOOGLE SHEET (NẾU CHƯA LÀM) ===
+1. Mở: https://docs.google.com/spreadsheets/d/10gHUhGOXVKRLlYXmnW9PVY2Cu2JhGvCfcs1BbhcUlqA/edit
+2. Click "Share" (Chia sẻ)
+3. Thêm: mconic-sheets-logger@mconic-redesign.iam.gserviceaccount.com
+4. Quyền: Editor
+5. Send
+
+=== BƯỚC 3: REDEPLOY VERCEL ===
+Sau khi thêm tất cả environment variables:
+1. Vào tab Deployments
+2. Click "Redeploy" trên deployment mới nhất
+3. Hoặc Settings → Functions → Clear Cache rồi redeploy
 
 === KIỂM TRA ===
-- Test form contact trên website sau khi deploy
-- Kiểm tra Google Sheet xem có data mới không
-- Nếu vẫn lỗi, kiểm tra Vercel Function Logs
+- Test form liên hệ ngay sau khi redeploy
+- Nếu vẫn lỗi, check Function Logs trong Vercel
