@@ -63,7 +63,7 @@
 | **Phân loại** | Loại form | contact (tư vấn) / quote (bảo hiểm) |
 | **Họ và tên** | Tên khách | Nguyễn Quang Huy |
 | **Số điện thoại** | SĐT khách | 0902970416 |
-| **Email** | Email khách | kimang6251@gmail.com |
+| **Email** | Email khách | ...@gmail.com |
 | **Tuổi** | Tuổi (nếu form bảo hiểm) | 25 |
 | **Chi tiết khác** | Gói bảo hiểm hoặc thông tin thêm | Thẻ Vàng |
 
@@ -92,7 +92,7 @@
 - Có khách submit form tư vấn
 - Có khách submit form bảo hiểm
 
-**Email từ:** MCONIC Event Agency <leduykhang25012005@gmail.com>
+**Email từ:** MCONIC Event Agency <...@gmail.com>
 **Nội dung:** Thông tin khách hàng (tên, SĐT, email)
 
 ### Email Khách Hàng
@@ -126,7 +126,7 @@ https://vercel.com/khang667717/mconic-redesign
 4. Chờ tự động redeploy (2-3 phút)
 
 **Ví dụ:**
-- Cũ: `leduykhang25012005@gmail.com`
+- Cũ: `...@gmail.com`
 - Mới: `admin@mconic.vn`
 
 ---
