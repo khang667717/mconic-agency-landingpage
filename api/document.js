@@ -3,6 +3,18 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
 
+// HTML escape function to prevent email injection and XSS
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
 // Environment variables
 const getEnvVars = () => ({
   googleSheetId: process.env.GOOGLE_SHEET_ID,
@@ -164,12 +176,12 @@ module.exports = async (req, res) => {
       const mailOptions = {
         from: `"${env.senderName}" <${env.smtpUser}>`,
         to: email,
-        subject: `Yêu cầu tài liệu: ${docConfig.title} - MCONIC`,
+        subject: `Yêu cầu tài liệu: ${escapeHtml(docConfig.title)} - MCONIC`,
         html: `
           <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #161310; max-width: 600px; margin: 0 auto; border: 2px solid #161310; padding: 2rem; border-radius: 12px; background-color: #FBF6EE;">
             <h2 style="color: #D32F2F; text-transform: uppercase; margin-bottom: 1.5rem;">MCONIC Event Agency</h2>
-            <p>Xin chào <strong>${name}</strong>,</p>
-            <p>Cảm ơn bạn đã quan tâm đến tài liệu <strong>${docConfig.title}</strong>.</p>
+            <p>Xin chào <strong>${escapeHtml(name)}</strong>,</p>
+            <p>Cảm ơn bạn đã quan tâm đến tài liệu <strong>${escapeHtml(docConfig.title)}</strong>.</p>
             <p>Chúng tôi đã ghi nhận yêu cầu của bạn và sẽ gửi tài liệu qua email trong thời gian sớm nhất.</p>
             <p>Nếu cần hỗ trợ thêm, vui lòng liên hệ: <strong>0901 234 567</strong></p>
           </div>

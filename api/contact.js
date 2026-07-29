@@ -126,6 +126,17 @@ function getMailTransporter() {
   });
 }
 
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
 module.exports = async (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -181,9 +192,9 @@ module.exports = async (req, res) => {
         subject: `[LEAD MỚI] Yêu cầu tư vấn từ ${name}`,
         html: `
           <h3>Thông tin khách hàng mới đăng ký tư vấn:</h3>
-          <p><strong>Họ và tên:</strong> ${name}</p>
-          <p><strong>Số điện thoại:</strong> ${cleanedPhone}</p>
-          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Họ và tên:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Số điện thoại:</strong> ${escapeHtml(cleanedPhone)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
           <p><strong>Thời gian:</strong> ${new Date().toLocaleString('vi-VN')}</p>
         `
       };
@@ -196,9 +207,9 @@ module.exports = async (req, res) => {
         html: `
           <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #161310; max-width: 600px; margin: 0 auto; border: 2px solid #161310; padding: 2rem; border-radius: 12px; background-color: #FBF6EE;">
             <h2 style="color: #D32F2F; text-transform: uppercase; margin-bottom: 1.5rem;">MCONIC Event Agency</h2>
-            <p>Xin chào <strong>${name}</strong>,</p>
+            <p>Xin chào <strong>${escapeHtml(name)}</strong>,</p>
             <p>Cảm ơn bạn đã quan tâm và gửi yêu cầu tư vấn tổ chức sự kiện tại MCONIC.</p>
-            <p>Chúng tôi sẽ liên hệ lại với bạn qua số điện thoại <strong>${cleanedPhone}</strong> trong vòng 24 giờ làm việc.</p>
+            <p>Chúng tôi sẽ liên hệ lại với bạn qua số điện thoại <strong>${escapeHtml(cleanedPhone)}</strong> trong vòng 24 giờ làm việc.</p>
           </div>
         `
       };

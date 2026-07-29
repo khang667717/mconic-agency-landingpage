@@ -212,15 +212,29 @@ document.addEventListener('DOMContentLoaded', () => {
         showAllBtnContainer.style.display = 'block';
       }
     } else {
-      result.innerHTML = `
-        <div class="result__top">Xin chào, <strong>${esc(data.name)}</strong>!</div>
-        <div class="result__rec">
-          <p style="margin: 0; color: #111;">Tuổi của bạn: <strong>${age} tuổi</strong></p>
-          <div style="color: ${tier ? tier.color : '#D32F2F'}; font-weight: 700; font-size: 1.05rem; margin-top: 0.75rem; padding: 0.75rem; background: rgba(211, 47, 47, 0.05); border-left: 4px solid ${tier ? tier.color : '#D32F2F'}; border-radius: 8px;">
-            ${tier ? tier.tier : 'Không đủ điều kiện tham gia'}
-          </div>
-        </div>
-      `;
+      // Display message for ineligible age
+      const resultDiv = document.createElement('div');
+      const topDiv = document.createElement('div');
+      topDiv.className = 'result__top';
+      topDiv.innerHTML = `Xin chào, <strong>${esc(data.name)}</strong>!`;
+      
+      const recDiv = document.createElement('div');
+      recDiv.className = 'result__rec';
+      const ageP = document.createElement('p');
+      ageP.style.cssText = 'margin: 0; color: #111;';
+      ageP.innerHTML = `Tuổi của bạn: <strong>${age} tuổi</strong>`;
+      
+      const statusDiv = document.createElement('div');
+      statusDiv.style.cssText = `color: ${tier ? tier.color : '#D32F2F'}; font-weight: 700; font-size: 1.05rem; margin-top: 0.75rem; padding: 0.75rem; background: rgba(211, 47, 47, 0.05); border-left: 4px solid ${tier ? tier.color : '#D32F2F'}; border-radius: 8px;`;
+      statusDiv.textContent = tier ? tier.tier : 'Không đủ điều kiện tham gia';
+      
+      recDiv.appendChild(ageP);
+      recDiv.appendChild(statusDiv);
+      resultDiv.appendChild(topDiv);
+      resultDiv.appendChild(recDiv);
+      
+      result.innerHTML = '';
+      result.appendChild(resultDiv);
       result.classList.add('show');
       result.style.display = 'block';
 

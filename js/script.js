@@ -197,22 +197,47 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok && result.success) {
           // Show professional e-commercial success view inside modal
           const modalBody = docModal.querySelector('.modal__body');
-          modalBody.innerHTML = `
-            <button class="modal__close" id="docModalClose" aria-label="Đóng"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
-            <div style="text-align: center; padding: 2.2rem 1rem;">
-              <div style="font-size: 4rem; color: var(--red); margin-bottom: 1.2rem; transform: scale(0); animation: popScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;"><i class="fa-solid fa-circle-check"></i></div>
-              <h3 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 0.6rem; font-family: var(--font-display); font-weight: 800;">Gửi tài liệu thành công!</h3>
-              <p style="color: var(--ink-soft); font-size: 0.96rem; line-height: 1.6; margin-bottom: 1.8rem; font-family: var(--font-body);">
-                Chúng tôi đã gửi file tài liệu vào hộp thư của bạn:<br>
-                <strong style="color: var(--ink); word-break: break-all;">${email}</strong>.<br>
-                Vui lòng kiểm tra hộp thư đến (hoặc thư rác/spam).
-              </p>
-              <button class="btn btn-red" id="successModalCloseBtn" style="width: 100%;">Hoàn tất</button>
-            </div>
-            <style>
-              @keyframes popScale { to { transform: scale(1); } }
-            </style>
-          `;
+          
+          const successDiv = document.createElement('div');
+          successDiv.style.cssText = 'text-align: center; padding: 2.2rem 1rem;';
+          
+          const closeBtn = document.createElement('button');
+          closeBtn.className = 'modal__close';
+          closeBtn.id = 'docModalClose';
+          closeBtn.setAttribute('aria-label', 'Đóng');
+          closeBtn.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+          
+          const iconDiv = document.createElement('div');
+          iconDiv.style.cssText = 'font-size: 4rem; color: var(--red); margin-bottom: 1.2rem; transform: scale(0); animation: popScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;';
+          iconDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+          
+          const title = document.createElement('h3');
+          title.style.cssText = 'font-size: 1.6rem; text-transform: uppercase; margin-bottom: 0.6rem; font-family: var(--font-display); font-weight: 800;';
+          title.textContent = 'Gửi tài liệu thành công!';
+          
+          const message = document.createElement('p');
+          message.style.cssText = 'color: var(--ink-soft); font-size: 0.96rem; line-height: 1.6; margin-bottom: 1.8rem; font-family: var(--font-body); word-break: break-all;';
+          message.innerHTML = `Chúng tôi đã gửi file tài liệu vào hộp thư của bạn:<br><strong>${esc(email)}</strong>.<br>Vui lòng kiểm tra hộp thư đến (hoặc thư rác/spam).`;
+          
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-red';
+          btn.id = 'successModalCloseBtn';
+          btn.style.width = '100%';
+          btn.textContent = 'Hoàn tất';
+          
+          successDiv.appendChild(closeBtn);
+          successDiv.appendChild(iconDiv);
+          successDiv.appendChild(title);
+          successDiv.appendChild(message);
+          successDiv.appendChild(btn);
+          
+          const style = document.createElement('style');
+          style.textContent = '@keyframes popScale { to { transform: scale(1); } }';
+          successDiv.appendChild(style);
+          
+          modalBody.innerHTML = '';
+          modalBody.appendChild(successDiv);
+          
           modalBody.querySelector('#docModalClose').addEventListener('click', closeDocModal);
           modalBody.querySelector('#successModalCloseBtn').addEventListener('click', closeDocModal);
         } else {
@@ -287,21 +312,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok && result.success) {
           // Show professional e-commercial success view inline
-          currentForm.innerHTML = `
-            <div style="text-align: center; padding: 2.5rem 1.2rem; background: var(--paper-2); border: 2px solid var(--ink); border-radius: var(--r-md); box-shadow: var(--shadow-pop);">
-              <div style="font-size: 4.5rem; color: var(--red); margin-bottom: 1.2rem; transform: scale(0); animation: popScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;"><i class="fa-solid fa-circle-check"></i></div>
-              <h3 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 0.6rem; font-family: var(--font-display); font-weight: 800;">Đăng ký thành công!</h3>
-              <p style="color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; margin-bottom: 1.8rem; font-family: var(--font-body);">
-                Cảm ơn bạn, <strong>${name}</strong>!<br>
-                Email xác nhận đã được gửi tới <strong>${email}</strong>.<br>
-                Chuyên viên hoạch định sự kiện của MCONIC sẽ liên hệ tư vấn qua số điện thoại <strong>${phoneRaw}</strong> trong vòng 24h làm việc.
-              </p>
-              <button class="btn btn-outline" id="resetContactFormBtn" style="width: 100%;">Gửi yêu cầu khác</button>
-            </div>
-            <style>
-              @keyframes popScale { to { transform: scale(1); } }
-            </style>
-          `;
+          // Create elements safely without innerHTML to prevent XSS
+          const successDiv = document.createElement('div');
+          successDiv.style.cssText = 'text-align: center; padding: 2.5rem 1.2rem; background: var(--paper-2); border: 2px solid var(--ink); border-radius: var(--r-md); box-shadow: var(--shadow-pop);';
+          
+          const iconDiv = document.createElement('div');
+          iconDiv.style.cssText = 'font-size: 4.5rem; color: var(--red); margin-bottom: 1.2rem; transform: scale(0); animation: popScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;';
+          iconDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+          
+          const title = document.createElement('h3');
+          title.style.cssText = 'font-size: 1.6rem; text-transform: uppercase; margin-bottom: 0.6rem; font-family: var(--font-display); font-weight: 800;';
+          title.textContent = 'Đăng ký thành công!';
+          
+          const message = document.createElement('p');
+          message.style.cssText = 'color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; margin-bottom: 1.8rem; font-family: var(--font-body);';
+          message.innerHTML = `Cảm ơn bạn, <strong>${esc(name)}</strong>!<br>Email xác nhận đã được gửi tới <strong>${esc(email)}</strong>.<br>Chuyên viên hoạch định sự kiện của MCONIC sẽ liên hệ tư vấn qua số điện thoại <strong>${esc(phoneRaw)}</strong> trong vòng 24h làm việc.`;
+          
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-outline';
+          btn.id = 'resetContactFormBtn';
+          btn.style.width = '100%';
+          btn.textContent = 'Gửi yêu cầu khác';
+          
+          successDiv.appendChild(iconDiv);
+          successDiv.appendChild(title);
+          successDiv.appendChild(message);
+          successDiv.appendChild(btn);
+          
+          currentForm.innerHTML = '';
+          currentForm.appendChild(successDiv);
+          
+          // Add style animation
+          const style = document.createElement('style');
+          style.textContent = '@keyframes popScale { to { transform: scale(1); } }';
+          document.head.appendChild(style);
           
           currentForm.querySelector('#resetContactFormBtn').addEventListener('click', () => {
             currentForm.innerHTML = originalFormHtml;
