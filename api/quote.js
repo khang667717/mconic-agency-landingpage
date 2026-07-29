@@ -7,7 +7,20 @@ const path = require('path');
 const getEnvVars = () => {
   let googleCredentials = process.env.GOOGLE_CREDENTIALS_JSON;
   
-  // If not in GOOGLE_CREDENTIALS_JSON, try to build from parts
+  // Try Base64 decode first (preferred method)
+  if (!googleCredentials && process.env.GOOGLE_CREDENTIALS_BASE64) {
+    try {
+      googleCredentials = Buffer.from(
+        process.env.GOOGLE_CREDENTIALS_BASE64, 
+        'base64'
+      ).toString('utf-8');
+      console.log('✅ Base64 credentials decoded successfully');
+    } catch (e) {
+      console.warn('❌ Failed to decode Base64 credentials:', e.message);
+    }
+  }
+  
+  // Fallback: try to build from parts
   if (!googleCredentials) {
     const part1 = process.env.GOOGLE_PRIVATE_KEY_PART1 || '';
     const part2 = process.env.GOOGLE_PRIVATE_KEY_PART2 || '';
@@ -27,15 +40,17 @@ const getEnvVars = () => {
         client_x509_cert_url: process.env.GOOGLE_CERT_URL,
         universe_domain: 'googleapis.com'
       });
+      console.log('✅ Credentials built from PART1+PART2');
     } else {
       // Try reading from file
       try {
         const credPath = path.join(process.cwd(), 'google-credentials.json');
         if (fs.existsSync(credPath)) {
           googleCredentials = fs.readFileSync(credPath, 'utf-8');
+          console.log('✅ Credentials loaded from file');
         }
       } catch (e) {
-        console.warn('Could not read google-credentials.json from file');
+        console.warn('❌ Could not read google-credentials.json from file');
       }
     }
   }
