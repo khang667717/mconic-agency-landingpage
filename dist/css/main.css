@@ -1,0 +1,114 @@
+/* css/base.css */
+:root {
+  --ink: #161310;
+  --ink-soft: #3a342d;
+  --paper: #FBF6EE;
+  --paper-2: #F1E9DA;
+  --surface: #FFFDF8;
+  --red: #D32F2F;
+  --red-dark: #B71C1C;
+  --gold: #C8A24B;
+  --green: #2E7D32;
+  --green-light: #4CAF50;
+  --green-dark: #1B5E20;
+  --line: #E3DACA;
+  --line-strong: #161310;
+  --muted: #8A8074;
+  --font-display: "Archivo", sans-serif;
+  --font-body:
+    "Public Sans",
+    system-ui,
+    sans-serif;
+  --maxw: 1240px;
+  --r-sm: 6px;
+  --r-md: 14px;
+  --r-lg: 24px;
+  --shadow-pop: 6px 6px 0 var(--ink);
+  --shadow-pop-red: 6px 6px 0 var(--red);
+  --shadow-pop-green: 6px 6px 0 var(--green);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --sect: clamp(4rem, 9vw, 7.5rem);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+ul {
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -.02em;
+  overflow-wrap: anywhere;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .btn:hover,
+  .svc:hover,
+  .case:hover,
+  .btn-red:hover {
+    transform: none !important;
+  }
+  .svc:hover .svc__img img {
+    transform: none !important;
+  }
+}
+/*# sourceMappingURL=main.css.map */

@@ -260,6 +260,25 @@ const apiLimiter = rateLimit({
 // Apply rate limiter to all API endpoints
 app.use('/api/', apiLimiter);
 
+// Cache Control Headers Middleware
+app.use((req, res, next) => {
+  // Static assets: cache for 1 year (immutable)
+  if (req.url.match(/\.(js|css|webp|png|jpg|jpeg|gif|woff2|woff|ttf|svg)$/i)) {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+  // HTML pages: cache for 1 hour, must revalidate
+  else if (req.url.match(/\.html?$/i) || req.url === '/') {
+    res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+  }
+  // API responses: no cache
+  else if (req.url.startsWith('/api/')) {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+  next();
+});
+
 // Nodemailer SMTP Transporter
 function getMailTransporter() {
   // Check if SMTP details are configured

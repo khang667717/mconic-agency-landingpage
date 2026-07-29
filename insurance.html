@@ -4,19 +4,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Bảo hiểm sự kiện MCONIC Protect — bảo vệ khách mời, đội ngũ và thiết bị khỏi mọi rủi ro tài chính.">
+  <meta name="description" content="Bảo hiểm sự kiện MCONIC Protect — bảo vệ khách mời, đội ngũ và thiết bị khỏi mọi rủi ro tài chính.">
+  <meta name="theme-color" content="#D32F2F">
+  <link rel="canonical" href="https://mconic.vn/insurance.html">
+  <link rel="alternate" hreflang="vi" href="https://mconic.vn/insurance.html">
+  
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content="MCONIC Protect — Bảo hiểm Sự kiện Toàn Diện">
+  <meta property="og:description" content="Gói bảo hiểm sự kiện linh hoạt, bảo vệ khách mời, đội ngũ và thiết bị">
+  <meta property="og:image" content="https://mconic.vn/images/og-image-insurance.jpg">
+  <meta property="og:url" content="https://mconic.vn/insurance.html">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MCONIC Protect — Bảo hiểm Sự kiện">
+  <meta name="twitter:description" content="Bảo hiểm sự kiện toàn diện, linh hoạt theo quy mô">
+  <meta name="twitter:image" content="https://mconic.vn/images/og-image-insurance.jpg">
+  
   <title>Bảo hiểm Sự kiện — MCONIC Protect</title>
+  
+  <!-- Font Preconnect & DNS Prefetch for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/insurance.css">
+  
+  <!-- Critical CSS (inline for FCP optimization) -->
+  <style>
+    :root {
+      --ink: #161310;
+      --paper: #FBF6EE;
+      --red: #D32F2F;
+      --red-dark: #B71C1C;
+      --font-display: 'Archivo', 'Georgia', serif;
+      --font-body: 'Public Sans', system-ui, -apple-system, sans-serif;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    .btn { font-weight: 600; padding: 0.875rem 1.5rem; display: inline-flex; align-items: center; transition: all 0.3s var(--ease); }
+    .btn-red { background: var(--red); color: #FBF6EE; }
+    nav { background: var(--paper); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+    .nav__inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .nav__menu { display: flex; gap: 2rem; }
+    .nav__link { font-size: 0.875rem; font-weight: 500; }
+    h1 { font-family: var(--font-display); font-size: clamp(2rem, 8vw, 4rem); font-weight: 900; line-height: 1.2; margin: 1rem 0; }
+    .red { color: var(--red); }
+  </style>
+  
+  <!-- Preload non-critical CSS -->
+  <link rel="preload" href="/dist/css/insurance.css" as="style">
+  <link rel="stylesheet" href="/dist/css/insurance.css">
+  
+  <!-- Structured Data (ld+json) for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "MCONIC Protect — Event Insurance",
+    "description": "Bảo hiểm sự kiện toàn diện cho các doanh nghiệp tổ chức sự kiện B2B",
+    "brand": {
+      "@type": "Brand",
+      "name": "MCONIC Event Agency"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
   
 </head>
 
@@ -352,7 +415,7 @@
     <i class="fa-solid fa-phone" aria-hidden="true"></i>
   </a>
 
-  <script src="js/insurance.js"></script>
+  <script src="/dist/js/insurance.js" defer></script>
 </body>
 
 </html>
