@@ -204,9 +204,9 @@ GOOGLE_SHEET_TAB_NAME=Trang tính1
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=leduykhang25012005@gmail.com
+SMTP_USER= ghi email  vào đây
 SMTP_PASS=[App Password]
-ADMIN_EMAIL=leduykhang25012005@gmail.com
+ADMIN_EMAIL= ghi email vào đây
 SENDER_NAME=MCONIC Event Agency
 ```
 
