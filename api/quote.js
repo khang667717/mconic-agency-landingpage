@@ -85,6 +85,59 @@ async function logLeadToGoogleSheets(lead) {
       }
     }
 
+    // Check if this is a quote update (has phone and age) on existing contact row
+    if (lead.type === 'quote' && lead.phone && lead.age !== undefined) {
+      try {
+        // Get all data to find matching row
+        const allDataResponse = await sheets.spreadsheets.values.get({
+          spreadsheetId: env.googleSheetId,
+          range: `${quotedTab}!A:G`,
+        });
+        
+        const allRows = allDataResponse.data.values || [];
+        let matchingRowIndex = -1;
+
+        // Find row with same name and phone (case-insensitive, trim spaces)
+        for (let i = 1; i < allRows.length; i++) {
+          const row = allRows[i];
+          const rowName = (row[2] || '').trim().toLowerCase();
+          const rowPhone = (row[3] || '').trim();
+          
+          if (rowName === lead.name.toLowerCase().trim() && rowPhone === lead.phone) {
+            matchingRowIndex = i + 1; // A1 notation is 1-indexed
+            break;
+          }
+        }
+
+        if (matchingRowIndex > 0) {
+          // Update existing row: add age and details, preserve email
+          const updateRow = [
+            new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }), // Thời gian
+            lead.type || 'quote',
+            lead.name || '',
+            lead.phone || '',
+            allRows[matchingRowIndex - 1][4] || '', // Preserve existing email
+            lead.age !== undefined ? lead.age : '',
+            lead.details || ''
+          ];
+
+          await sheets.spreadsheets.values.update({
+            spreadsheetId: env.googleSheetId,
+            range: `${quotedTab}!A${matchingRowIndex}:G${matchingRowIndex}`,
+            valueInputOption: 'USER_ENTERED',
+            resource: { values: [updateRow] }
+          });
+
+          console.log(`Insurance quote updated existing row ${matchingRowIndex}`);
+          return;
+        }
+      } catch (e) {
+        console.error('Error searching for matching row:', e);
+        // Fall through to append if search fails
+      }
+    }
+
+    // No matching row found or this is initial contact - append new row
     const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
     const row = [
       timestamp,
