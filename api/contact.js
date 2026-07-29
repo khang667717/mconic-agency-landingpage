@@ -1,6 +1,24 @@
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 
+// Sanitize email subject to prevent header injection
+function sanitizeEmailSubject(subject) {
+  // Remove newlines, carriage returns, and tab characters to prevent email header injection
+  return subject.replace(/[\r\n\t]/g, ' ').trim();
+}
+
+// HTML escape function to prevent email injection and XSS
+function escapeHtmlEmail(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
 // Environment variables
 const getEnvVars = () => ({
   googleSheetId: process.env.GOOGLE_SHEET_ID,
@@ -126,17 +144,6 @@ function getMailTransporter() {
   });
 }
 
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
-
 module.exports = async (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -189,7 +196,7 @@ module.exports = async (req, res) => {
       const adminMailOptions = {
         from: `"${env.senderName}" <${env.smtpUser}>`,
         to: env.adminEmail,
-        subject: `[LEAD MỚI] Yêu cầu tư vấn từ ${name}`,
+        subject: sanitizeEmailSubject(`[LEAD MỚI] Yêu cầu tư vấn từ ${name}`),
         html: `
           <h3>Thông tin khách hàng mới đăng ký tư vấn:</h3>
           <p><strong>Họ và tên:</strong> ${escapeHtml(name)}</p>
@@ -203,7 +210,7 @@ module.exports = async (req, res) => {
       const userMailOptions = {
         from: `"${env.senderName}" <${env.smtpUser}>`,
         to: email,
-        subject: `Xác nhận yêu cầu tư vấn sự kiện - MCONIC`,
+        subject: sanitizeEmailSubject(`Xác nhận yêu cầu tư vấn sự kiện - MCONIC`),
         html: `
           <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #161310; max-width: 600px; margin: 0 auto; border: 2px solid #161310; padding: 2rem; border-radius: 12px; background-color: #FBF6EE;">
             <h2 style="color: #D32F2F; text-transform: uppercase; margin-bottom: 1.5rem;">MCONIC Event Agency</h2>

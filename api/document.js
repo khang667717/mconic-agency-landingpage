@@ -3,8 +3,13 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
 
+// Sanitize email subject to prevent header injection
+function sanitizeEmailSubject(subject) {
+  return subject.replace(/[\r\n\t]/g, ' ').trim();
+}
+
 // HTML escape function to prevent email injection and XSS
-function escapeHtml(text) {
+function escapeHtmlEmail(text) {
   const map = {
     '&': '&amp;',
     '<': '&lt;',
