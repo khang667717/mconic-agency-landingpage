@@ -10,7 +10,7 @@
   ],
   "functions": {
     "api/server.js": {
-      "includeFiles": "assets/documents/**,google-credentials.json"
+      "includeFiles": "assets/documents/**"
     }
   },
   "headers": [
