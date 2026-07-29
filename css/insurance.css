@@ -666,8 +666,8 @@
     position: relative;
     transform: scale(1.08) !important;
     z-index: 5;
-    box-shadow: var(--shadow-pop-red) !important;
-    border: 3px solid var(--red) !important;
+    box-shadow: var(--shadow-pop-green) !important;
+    border: 3px solid var(--green) !important;
 }
 
 .tier--recommended::before {
@@ -675,7 +675,7 @@
     position: absolute;
     top: 12px;
     left: -10px;
-    background: var(--red);
+    background: var(--green);
     color: #FFF;
     font-size: 0.65rem;
     font-weight: 800;
@@ -753,7 +753,7 @@
         padding: 1.35rem;
         border-width: 2px;
         border-radius: 18px;
-        box-shadow: 4px 4px 0 var(--red)
+        box-shadow: 4px 4px 0 var(--green)
     }
 
     .quote-card h3 {
