@@ -160,28 +160,42 @@ async function logLeadToGoogleSheets(lead) {
       }
     }
 
-    const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
-    const row = [
-      timestamp,
-      lead.type || 'contact',
-      lead.name || '',
-      lead.phone || '',
-      lead.email || '',
-      lead.age !== undefined ? lead.age : '',
-      lead.details || ''
-    ];
+    // Get all existing data to find next empty row
+    try {
+      const allData = await sheets.spreadsheets.values.get({
+        spreadsheetId: env.googleSheetId,
+        range: `${quotedTab}!A:G`
+      });
+      
+      const rows = allData.data.values || [];
+      const nextRow = rows.length + 1; // Next empty row (1-indexed)
+      
+      const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+      const row = [
+        timestamp,
+        lead.type || 'contact',
+        lead.name || '',
+        lead.phone || '',
+        lead.email || '',
+        lead.age !== undefined ? lead.age : '',
+        lead.details || ''
+      ];
 
-    console.log('📝 Appending row to Google Sheets:', row);
+      console.log(`📝 Writing to row ${nextRow}:`, row);
 
-    // Use append() on the entire sheet - it will find the next empty row
-    const appendResponse = await sheets.spreadsheets.values.append({
-      spreadsheetId: env.googleSheetId,
-      range: `${quotedTab}!A:G`,
-      valueInputOption: 'USER_ENTERED',
-      resource: { values: [row] }
-    });
-    
-    console.log('✅ Contact logged to Google Sheets - Updated Range:', appendResponse.data.updates?.updatedRange);
+      // Write directly to specific row instead of append (prevent race conditions)
+      const updateResponse = await sheets.spreadsheets.values.update({
+        spreadsheetId: env.googleSheetId,
+        range: `${quotedTab}!A${nextRow}:G${nextRow}`,
+        valueInputOption: 'USER_ENTERED',
+        resource: { values: [row] }
+      });
+      
+      console.log(`✅ Contact logged to row ${nextRow} - Updated Range:`, updateResponse.data.updatedRange);
+    } catch (error) {
+      console.error('❌ Error writing to Google Sheets:', error.message);
+      throw error;
+    }
   } catch (error) {
     console.error('❌ Error logging contact to Google Sheets:', error.message);
   }
