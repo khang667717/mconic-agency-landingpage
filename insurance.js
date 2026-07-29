@@ -159,11 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
       valid = false;
     }
     if (!/^0[0-9]{9}$/.test(phone)) {
-      document.getElementById('qPhoneErr').textContent = 'Số điện thoại phải đủ 10 số và bắt đầu bằng 0.';
+      document.getElementById('qPhoneErr').textContent = 'Số điện thoại phải đủ 10 số và bắt đầu bằng 0 (có thể có dấu cách hoặc gạch nối).';
       valid = false;
     }
-    if (isNaN(age) || age < 0 || age > 120) {
-      document.getElementById('qAgeErr').textContent = 'Tuổi phải là số nguyên từ 0 đến 120.';
+    if (isNaN(age) || age < 18 || age > 75) {
+      document.getElementById('qAgeErr').textContent = 'Tuổi phải từ 18 đến 75 tuổi.';
       valid = false;
     }
     return valid ? { name, phone, age } : null;

@@ -659,12 +659,14 @@
 /* ============================================================
    FLOATING CALL BUTTON - MOBILE ONLY
    ============================================================ */
+/* Floating call button - Hidden by default */
 .floating-call-btn {
-  /* Hidden by default */
   display: none;
+}
 
-  /* Mobile only */
-  @media (max-width: 600px) {
+/* Mobile only - max-width: 600px */
+@media (max-width: 600px) {
+  .floating-call-btn {
     display: flex;
     position: fixed;
     bottom: max(20px, env(safe-area-inset-bottom, 20px));

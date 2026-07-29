@@ -268,8 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let ok = true;
       if (!name) { document.getElementById('cNameErr').textContent = 'Vui lòng nhập họ và tên.'; ok = false; }
-      if (!/^0[0-9]{9}$/.test(phone)) { document.getElementById('cPhoneErr').textContent = 'Số điện thoại phải đủ 10 số và bắt đầu bằng 0.'; ok = false; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById('cEmailErr').textContent = 'Email không hợp lệ.'; ok = false; }
+      if (!/^0[0-9]{9}$/.test(phone)) { document.getElementById('cPhoneErr').textContent = 'Số điện thoại phải đủ 10 số và bắt đầu bằng 0 (có thể có dấu cách hoặc gạch nối).'; ok = false; }
+      if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) { document.getElementById('cEmailErr').textContent = 'Email không hợp lệ.'; ok = false; }
       
       if (!ok) return;
 
