@@ -180,7 +180,7 @@ async function logLeadToGoogleSheets(lead) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: `${quotedTab}!A:G`,
+      range: `${quotedTab}!A2:G`,
       valueInputOption: 'USER_ENTERED',
       resource: {
         values: [row]
@@ -242,26 +242,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev')); // HTTP request logging
 
-// Security Headers Middleware
-app.use((req, res, next) => {
-  // Prevent browsers from sniffing MIME types
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  
-  // Prevent clickjacking attacks
-  res.setHeader('X-Frame-Options', 'DENY');
-  
-  // Enable XSS protection in older browsers
-  res.setHeader('X-XSS-Protection', '1; mode=block');
-  
-  // Disable referrer information leakage
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  
-  // Content Security Policy - strict, allows only same-origin resources
-  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
-  
-  next();
-});
-
 // Serve Static Frontend files
 app.use(express.static(path.join(__dirname, '..')));
 
@@ -279,24 +259,6 @@ const apiLimiter = rateLimit({
 
 // Apply rate limiter to all API endpoints
 app.use('/api/', apiLimiter);
-
-// Sanitize email subject to prevent header injection
-function sanitizeEmailSubject(subject) {
-  // Remove newlines, carriage returns, and tab characters to prevent email header injection
-  return subject.replace(/[\r\n\t]/g, ' ').trim();
-}
-
-// HTML escape function to prevent email injection and XSS
-function escapeHtmlEmail(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
 
 // Nodemailer SMTP Transporter
 function getMailTransporter() {
@@ -375,12 +337,12 @@ app.post('/api/leads/contact', async (req, res) => {
       const adminMailOptions = {
         from: `"${process.env.SENDER_NAME || 'MCONIC'}" <${process.env.SMTP_USER}>`,
         to: process.env.ADMIN_EMAIL || 'hello@mconic.vn',
-        subject: sanitizeEmailSubject(`[LEAD MỚI] Yêu cầu tư vấn từ ${name}`),
+        subject: `[LEAD MỚI] Yêu cầu tư vấn từ ${name}`,
         html: `
           <h3>Thông tin khách hàng mới đăng ký tư vấn:</h3>
-          <p><strong>Họ và tên:</strong> ${escapeHtmlEmail(name)}</p>
-          <p><strong>Số điện thoại:</strong> ${escapeHtmlEmail(cleanedPhone)}</p>
-          <p><strong>Email:</strong> ${escapeHtmlEmail(email)}</p>
+          <p><strong>Họ và tên:</strong> ${name}</p>
+          <p><strong>Số điện thoại:</strong> ${cleanedPhone}</p>
+          <p><strong>Email:</strong> ${email}</p>
           <p><strong>Thời gian:</strong> ${new Date().toLocaleString('vi-VN')}</p>
         `
       };
@@ -446,27 +408,12 @@ app.post('/api/leads/document', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Vui lòng cung cấp đầy đủ thông tin.' });
   }
 
-  // Security: Validate docId to prevent directory traversal attacks
-  // Only allow alphanumeric, hyphens, and underscores
-  if (!/^[a-zA-Z0-9_-]+$/.test(docId)) {
-    return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
-  }
-
   const docConfig = DOCUMENTS_MAP[docId];
   if (!docConfig) {
     return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
   }
 
   const docPath = path.join(docsDir, docConfig.file);
-  
-  // Security: Verify that the resolved path is still within docsDir (prevents directory traversal)
-  const resolvedPath = path.resolve(docPath);
-  const resolvedDocsDir = path.resolve(docsDir);
-  if (!resolvedPath.startsWith(resolvedDocsDir + path.sep) && resolvedPath !== resolvedDocsDir) {
-    logger.error(`Directory traversal attempt detected: ${resolvedPath}`);
-    return res.status(400).json({ success: false, message: 'Tài liệu yêu cầu không hợp lệ.' });
-  }
-
   if (!fs.existsSync(docPath)) {
     logger.error(`Document file not found at path: ${docPath}`);
     return res.status(404).json({ success: false, message: 'Tài liệu này hiện chưa sẵn sàng trên hệ thống. Vui lòng quay lại sau.' });
@@ -498,11 +445,11 @@ app.post('/api/leads/document', async (req, res) => {
       const mailOptions = {
         from: `"${process.env.SENDER_NAME || 'MCONIC'}" <${process.env.SMTP_USER}>`,
         to: email,
-        subject: sanitizeEmailSubject(`Tài liệu của bạn: ${docConfig.title} - MCONIC`),
+        subject: `Tài liệu của bạn: ${docConfig.title} - MCONIC`,
         html: `
-          <h3>Xin chào ${escapeHtmlEmail(name)},</h3>
+          <h3>Xin chào ${name},</h3>
           <p>Cảm ơn bạn đã quan tâm đến tài liệu chuyên môn của MCONIC Event Agency.</p>
-          <p>Chúng tôi xin gửi kèm tài liệu <strong>${escapeHtmlEmail(docConfig.title)}</strong> mà bạn đã yêu cầu ở file đính kèm dưới đây.</p>
+          <p>Chúng tôi xin gửi kèm tài liệu <strong>${docConfig.title}</strong> mà bạn đã yêu cầu ở file đính kèm dưới đây.</p>
           <p>Nếu bạn cần tư vấn thêm về dịch vụ tổ chức sự kiện trọn gói, vui lòng liên hệ hotline <strong>0901 234 567</strong>.</p>
           <br>
           <p>Trân trọng,</p>
@@ -567,13 +514,13 @@ app.post('/api/leads/quote', async (req, res) => {
       const adminMailOptions = {
         from: `"${process.env.SENDER_NAME || 'MCONIC Protect'}" <${process.env.SMTP_USER}>`,
         to: process.env.ADMIN_EMAIL || 'hello@mconic.vn',
-        subject: sanitizeEmailSubject(`[LEAD BẢO HIỂM] Yêu cầu báo giá từ ${name}`),
+        subject: `[LEAD BẢO HIỂM] Yêu cầu báo giá từ ${name}`,
         html: `
           <h3>Thông tin khách hàng tính phí bảo hiểm:</h3>
-          <p><strong>Họ và tên:</strong> ${escapeHtmlEmail(name)}</p>
-          <p><strong>Số điện thoại:</strong> ${escapeHtmlEmail(cleanedPhone)}</p>
+          <p><strong>Họ và tên:</strong> ${name}</p>
+          <p><strong>Số điện thoại:</strong> ${cleanedPhone}</p>
           <p><strong>Tuổi:</strong> ${age}</p>
-          <p><strong>Gói thẻ đề xuất:</strong> ${escapeHtmlEmail(recommendedTier || 'N/A')}</p>
+          <p><strong>Gói thẻ đề xuất:</strong> ${recommendedTier || 'N/A'}</p>
           <p><strong>Thời gian:</strong> ${new Date().toLocaleString('vi-VN')}</p>
         `
       };
@@ -591,15 +538,12 @@ app.post('/api/leads/quote', async (req, res) => {
   }
 });
 
-// 4. API: Admin GET Leads (Secure route for viewing logs - Authorization via Bearer token in header)
+// 4. API: Admin GET Leads (Basic secure route for viewing logs)
 app.get('/api/admin/leads', async (req, res) => {
-  // Security: Get token from Authorization header (not query string)
-  const authHeader = req.headers.authorization || '';
-  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
-  
-  // Validate admin token
-  const adminToken = process.env.ADMIN_TOKEN;
-  if (!adminToken || !token || token !== adminToken) {
+  // Simple check for basic authorization or password (can be configured in production)
+  const token = req.query.token;
+  if (!token || token !== process.env.ADMIN_TOKEN) {
+    // If token is missing/wrong, return unauthorized
     return res.status(401).json({ success: false, message: 'Chưa được cấp quyền truy cập.' });
   }
 

@@ -1,14 +1,10 @@
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
 
-// Sanitize email subject to prevent header injection
-function sanitizeEmailSubject(subject) {
-  // Remove newlines, carriage returns, and tab characters to prevent email header injection
-  return subject.replace(/[\r\n\t]/g, ' ').trim();
-}
-
-// HTML escape function to prevent email injection and XSS
-function escapeHtmlEmail(text) {
+// Utility function to escape HTML special characters
+function escapeHtml(text) {
   const map = {
     '&': '&amp;',
     '<': '&lt;',
@@ -16,22 +12,38 @@ function escapeHtmlEmail(text) {
     '"': '&quot;',
     "'": '&#039;'
   };
-  return text.replace(/[&<>"']/g, m => map[m]);
+  return text.replace(/[&<>"']/g, char => map[char]);
 }
 
 // Environment variables
-const getEnvVars = () => ({
-  googleSheetId: process.env.GOOGLE_SHEET_ID,
-  googleCredentials: process.env.GOOGLE_CREDENTIALS_JSON,
-  googleTabName: process.env.GOOGLE_SHEET_TAB_NAME || 'Trang tính1',
-  smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
-  smtpPort: parseInt(process.env.SMTP_PORT || '587'),
-  smtpSecure: process.env.SMTP_SECURE === 'true',
-  smtpUser: process.env.SMTP_USER,
-  smtpPass: process.env.SMTP_PASS,
-  adminEmail: process.env.ADMIN_EMAIL,
-  senderName: process.env.SENDER_NAME || 'MCONIC Event Agency'
-});
+const getEnvVars = () => {
+  let googleCredentials = process.env.GOOGLE_CREDENTIALS_JSON;
+  
+  // If not in env, try reading from file
+  if (!googleCredentials) {
+    try {
+      const credPath = path.join(process.cwd(), 'google-credentials.json');
+      if (fs.existsSync(credPath)) {
+        googleCredentials = fs.readFileSync(credPath, 'utf-8');
+      }
+    } catch (e) {
+      console.warn('Could not read google-credentials.json from file');
+    }
+  }
+  
+  return {
+    googleSheetId: process.env.GOOGLE_SHEET_ID,
+    googleCredentials: googleCredentials,
+    googleTabName: process.env.GOOGLE_SHEET_TAB_NAME || 'Trang tính1',
+    smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
+    smtpPort: parseInt(process.env.SMTP_PORT || '587'),
+    smtpSecure: process.env.SMTP_SECURE === 'true',
+    smtpUser: process.env.SMTP_USER,
+    smtpPass: process.env.SMTP_PASS,
+    adminEmail: process.env.ADMIN_EMAIL,
+    senderName: process.env.SENDER_NAME || 'MCONIC Event Agency'
+  };
+};
 
 // Google Sheets client
 let googleSheetsClient = null;
@@ -116,7 +128,7 @@ async function logLeadToGoogleSheets(lead) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: env.googleSheetId,
-      range: `${quotedTab}!A:G`,
+      range: `${quotedTab}!A2:G`,
       valueInputOption: 'USER_ENTERED',
       resource: { values: [row] }
     });
@@ -192,16 +204,27 @@ module.exports = async (req, res) => {
     // Send emails
     const transporter = getMailTransporter();
     if (transporter) {
+      // Escape HTML special characters in user inputs
+      const escapedName = escapeHtml(name);
+      const escapedEmail = escapeHtml(email);
+      
+      console.log('Email config check:', {
+        hasTransporter: !!transporter,
+        adminEmail: env.adminEmail,
+        smtpUser: env.smtpUser ? 'set' : 'NOT SET',
+        smtpPass: env.smtpPass ? 'set' : 'NOT SET'
+      });
+      
       // Admin notification
       const adminMailOptions = {
         from: `"${env.senderName}" <${env.smtpUser}>`,
         to: env.adminEmail,
-        subject: sanitizeEmailSubject(`[LEAD MỚI] Yêu cầu tư vấn từ ${name}`),
+        subject: `[LEAD MỚI] Yêu cầu tư vấn từ ${escapedName}`,
         html: `
           <h3>Thông tin khách hàng mới đăng ký tư vấn:</h3>
-          <p><strong>Họ và tên:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Số điện thoại:</strong> ${escapeHtml(cleanedPhone)}</p>
-          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+          <p><strong>Họ và tên:</strong> ${escapedName}</p>
+          <p><strong>Số điện thoại:</strong> ${cleanedPhone}</p>
+          <p><strong>Email:</strong> ${escapedEmail}</p>
           <p><strong>Thời gian:</strong> ${new Date().toLocaleString('vi-VN')}</p>
         `
       };
@@ -210,27 +233,35 @@ module.exports = async (req, res) => {
       const userMailOptions = {
         from: `"${env.senderName}" <${env.smtpUser}>`,
         to: email,
-        subject: sanitizeEmailSubject(`Xác nhận yêu cầu tư vấn sự kiện - MCONIC`),
+        subject: `Xác nhận yêu cầu tư vấn sự kiện - MCONIC`,
         html: `
           <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #161310; max-width: 600px; margin: 0 auto; border: 2px solid #161310; padding: 2rem; border-radius: 12px; background-color: #FBF6EE;">
             <h2 style="color: #D32F2F; text-transform: uppercase; margin-bottom: 1.5rem;">MCONIC Event Agency</h2>
-            <p>Xin chào <strong>${escapeHtml(name)}</strong>,</p>
+            <p>Xin chào <strong>${escapedName}</strong>,</p>
             <p>Cảm ơn bạn đã quan tâm và gửi yêu cầu tư vấn tổ chức sự kiện tại MCONIC.</p>
-            <p>Chúng tôi sẽ liên hệ lại với bạn qua số điện thoại <strong>${escapeHtml(cleanedPhone)}</strong> trong vòng 24 giờ làm việc.</p>
+            <p>Chúng tôi sẽ liên hệ lại với bạn qua số điện thoại <strong>${cleanedPhone}</strong> trong vòng 24 giờ làm việc.</p>
           </div>
         `
       };
 
       try {
+        console.log('Attempting to send emails...');
         await Promise.all([
           transporter.sendMail(adminMailOptions),
           transporter.sendMail(userMailOptions)
         ]);
         console.log('Emails sent successfully');
       } catch (err) {
-        console.error('Failed to send emails:', err);
+        console.error('Failed to send emails - detailed error:', {
+          message: err.message,
+          code: err.code,
+          response: err.response,
+          stack: err.stack
+        });
         // Don't fail the request if email fails
       }
+    } else {
+      console.warn('Email transporter is not configured - missing SMTP credentials');
     }
 
     return res.status(200).json({ 

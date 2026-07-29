@@ -1,19 +1,37 @@
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
 
 // Environment variables
-const getEnvVars = () => ({
-  googleSheetId: process.env.GOOGLE_SHEET_ID,
-  googleCredentials: process.env.GOOGLE_CREDENTIALS_JSON,
-  googleTabName: process.env.GOOGLE_SHEET_TAB_NAME || 'Trang tính1',
-  smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
-  smtpPort: parseInt(process.env.SMTP_PORT || '587'),
-  smtpSecure: process.env.SMTP_SECURE === 'true',
-  smtpUser: process.env.SMTP_USER,
-  smtpPass: process.env.SMTP_PASS,
-  adminEmail: process.env.ADMIN_EMAIL,
-  senderName: process.env.SENDER_NAME || 'MCONIC Protect'
-});
+const getEnvVars = () => {
+  let googleCredentials = process.env.GOOGLE_CREDENTIALS_JSON;
+  
+  // If not in env, try reading from file
+  if (!googleCredentials) {
+    try {
+      const credPath = path.join(process.cwd(), 'google-credentials.json');
+      if (fs.existsSync(credPath)) {
+        googleCredentials = fs.readFileSync(credPath, 'utf-8');
+      }
+    } catch (e) {
+      console.warn('Could not read google-credentials.json from file');
+    }
+  }
+  
+  return {
+    googleSheetId: process.env.GOOGLE_SHEET_ID,
+    googleCredentials: googleCredentials,
+    googleTabName: process.env.GOOGLE_SHEET_TAB_NAME || 'Trang tính1',
+    smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
+    smtpPort: parseInt(process.env.SMTP_PORT || '587'),
+    smtpSecure: process.env.SMTP_SECURE === 'true',
+    smtpUser: process.env.SMTP_USER,
+    smtpPass: process.env.SMTP_PASS,
+    adminEmail: process.env.ADMIN_EMAIL,
+    senderName: process.env.SENDER_NAME || 'MCONIC Protect'
+  };
+};
 
 // Google Sheets client
 let googleSheetsClient = null;
@@ -98,7 +116,7 @@ async function logLeadToGoogleSheets(lead) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: env.googleSheetId,
-      range: `${quotedTab}!A:G`,
+      range: `${quotedTab}!A2:G`,
       valueInputOption: 'USER_ENTERED',
       resource: { values: [row] }
     });
